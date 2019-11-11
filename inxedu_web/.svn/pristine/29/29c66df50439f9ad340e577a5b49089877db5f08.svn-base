@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MemberRecordMapper">
+
+        <resultMap id="MemberRecordResult" type="MemberRecord">
+            <result property="userId" column="user_id"/>
+            <result property="beginDate" column="beginTime"/>
+            <result property="endDate" column="auth_time"/>
+            <result property="description" column="description"/>
+            <result property="status" column="auth_status"/>
+            <result property="orderId" column="trxorder_id"/>
+        </resultMap>
+		<resultMap id="MemberRecordDTOResult" type="MemberRecordDTO" extends="MemberRecordResult">
+            <result property="email" column="email"/>
+            <result property="memberTitle" column="title"/>
+            <result property="memberSaleName" column="member_sale_name"/>
+            <result property="user.email" column="email" />
+            <result property="user.mobile" column="mobile" />
+            <result property="user.loginAccount" column="loginAccount" />
+        </resultMap>
+        <sql id="edu_member_record_columns">
+            edu_trxorder_detail.user_id,
+            edu_trxorder_detail.beginTime,
+            edu_trxorder_detail.auth_time,
+            edu_trxorder_detail.description,
+            edu_trxorder_detail.auth_status,
+            edu_trxorder_detail.trxorder_id
+        </sql>
+
+        <sql id="edu_member_record_properties">
+            #{userId},
+            #{beginDate},
+            #{endDate},
+            #{description},
+            #{status},
+            #{orderId}
+        </sql>
+
+        <insert id="createMemberRecord" parameterType="MemberRecord" keyColumn="id" keyProperty="id" useGeneratedKeys="true" >
+            insert INTO edu_member_record (<include refid="edu_member_record_columns"/>) VALUES (<include refid="edu_member_record_properties"/>)
+        </insert>
+        <update id="updateMemberRecord" parameterType="MemberRecord">
+            update edu_member_record SET
+                id = #{id},
+                user_id = #{userId},
+                member_type = #{memberType},
+                begin_date = #{beginDate},
+                end_date = #{endDate},
+                description = #{description},
+                status=#{status}
+            where
+                id = #{id}
+        </update>
+
+        <select id="getMemberRecordById" resultMap="MemberRecordResult" parameterType="Long">
+            select
+            <include refid="edu_member_record_columns"/>
+            from edu_member_record
+            where
+                id = #{value}
+        </select>
+    <!-- 会员开通列表 -->
+    <select id="getMemberRecordPage" resultMap="MemberRecordDTOResult" parameterType="MemberRecordDTO">
+        select
+        <include refid="edu_member_record_columns"/>,
+        edu_member_type.title,
+        edu_user.email as email,
+        edu_user.mobile as mobile,
+        edu_member_type.id as memberType,
+        edu_trxorder_detail.id as id,
+       	case when edu_user.email is not null and edu_user.email!='' then edu_user.email
+        when edu_user.mobile is not null and edu_user.mobile!='' then edu_user.mobile
+        when edu_user.login_account is not null and edu_user.login_account!='' then edu_user.login_account
+        when edu_user.show_name is not null and edu_user.show_name then edu_user.show_name end as email
+            
+        
+        from edu_trxorder_detail
+        join edu_user on edu_user.user_id=edu_trxorder_detail.user_id
+        LEFT JOIN edu_member_sale ON edu_member_sale.id = edu_trxorder_detail.course_id
+        join edu_member_type on edu_member_sale.type=edu_member_type.id
+        <where>
+            (edu_trxorder_detail.auth_status = 'SUCCESS' OR edu_trxorder_detail.auth_status = 'CLOSED') AND edu_trxorder_detail.trxorderType='MEMBER'
+            <if test="e.email!=null and e.email!='' ">
+                and edu_user.email like CONCAT('%',#{e.email},'%')
+            </if>
+            <if test="e.memberType!=null and e.memberType>0 ">
+                and edu_member_type.id=#{e.memberType}
+            </if>
+            <if test="e.user != null">
+                <if test="e.user.mobile != null and e.user.mobile != ''">
+                    and edu_user.mobile like #{e.user.mobile}
+                </if>
+                <if test="e.user.email != null and e.user.email != ''">
+                    and edu_user.email like #{e.user.email}
+                </if>
+                <if test="e.user.loginAccount != null and e.user.loginAccount != ''">
+                    and edu_user.login_account like CONCAT(#{e.user.loginAccount},'%')
+                </if>
+            </if>
+            <if test="e.keyWord!=null and e.keyWord!=''">
+                AND (EDU_USER.EMAIL LIKE CONCAT('%',#{e.keyWord},'%')
+                OR EDU_USER.user_name LIKE CONCAT('%',#{e.keyWord},'%')
+                OR EDU_USER.MOBILE LIKE CONCAT('%',#{e.keyWord},'%')
+                )
+            </if>
+        </where>
+        <if test="e.orderByTime=='asc'">
+           ORDER BY edu_trxorder_detail.auth_time
+        </if>
+        <if test="e.orderByTime=='desc'">
+            ORDER BY edu_trxorder_detail.auth_time DESC
+        </if>
+        <include refid="publicMapper.pageEnd"/>
+    </select>
+    <select id="getMemberRecordPageCount" resultType="int"  parameterType="MemberRecordDTO">
+        select count(1)
+        from edu_trxorder_detail
+        join edu_user on edu_user.user_id=edu_trxorder_detail.user_id
+        LEFT JOIN edu_member_sale ON edu_member_sale.id = edu_trxorder_detail.course_id
+        join edu_member_type on edu_member_sale.type=edu_member_type.id
+        <where>
+            edu_trxorder_detail.auth_status != 'INIT' AND edu_trxorder_detail.trxorderType='MEMBER'
+            <if test="e.email!=null and e.email!='' ">
+                and edu_user.email like CONCAT('%',#{e.email},'%')
+            </if>
+            <if test="e.memberType!=null and e.memberType>0 ">
+                and edu_member_type.id=#{e.memberType}
+            </if>
+            <if test="e.user != null">
+                <if test="e.user.mobile != null and e.user.mobile != ''">
+                    and edu_user.mobile like #{e.user.mobile}
+                </if>
+                <if test="e.user.email != null and e.user.email != ''">
+                    and edu_user.email like #{e.user.email}
+                </if>
+                <if test="e.user.loginAccount != null and e.user.loginAccount != ''">
+                    and edu_user.login_account like CONCAT(#{e.user.loginAccount},'%')
+                </if>
+            </if>
+            <if test="e.keyWord!=null and e.keyWord!=''">
+                AND (EDU_USER.EMAIL LIKE CONCAT('%',#{e.keyWord},'%')
+                OR EDU_USER.user_name LIKE CONCAT('%',#{e.keyWord},'%')
+                OR EDU_USER.MOBILE LIKE CONCAT('%',#{e.keyWord},'%')
+                )
+            </if>
+        </where>
+    </select>
+        <!-- 用户某会员的开通记录 -->
+        <select id="getMemberRecordByCondition" parameterType="java.util.Map" resultMap="MemberRecordResult">
+        	select
+            <include refid="edu_member_record_columns"/>
+            from edu_member_record
+            left join edu_member_type on edu_member_record.member_type=edu_member_type.id
+            where user_id=#{userId} and edu_member_record.status=0 and edu_member_type.status=0
+            <if test="type != null and type != ''">
+                and member_type=#{type}
+            </if>
+            <if test="type != null and type != ''">
+                and member_type=#{type}
+            </if>
+        </select>
+        <!-- 用户所有会员的开通记录 -->
+        <select id="getMemberRecordByUserPage" parameterType="java.util.Map" resultMap="MemberRecordDTOResult">
+        	select
+            <include refid="edu_member_record_columns"/>,
+            edu_member_type.title,edu_orders.sum_money price,edu_trxorder_detail.trxorderType,edu_trxorder_detail.auth_status status,
+            edu_trxorder_detail.auth_status
+            from edu_trxorder_detail
+            LEFT JOIN edu_member_sale ON edu_member_sale.id = edu_trxorder_detail.course_id
+            left join edu_member_type on edu_member_sale.type=edu_member_type.id
+            left join edu_user on edu_user.user_id=edu_trxorder_detail.user_id
+            left JOIN edu_orders ON edu_trxorder_detail.trxorder_id = edu_orders.order_id
+            where edu_trxorder_detail.user_id=#{e}
+            and edu_member_type.status=0
+            AND edu_trxorder_detail.trxorderType='MEMBER'
+            AND edu_trxorder_detail.auth_status!='INIT'
+            <include refid="publicMapper.pageEnd"/>
+        </select>
+    <select id="getMemberRecordByUserPageCount" parameterType="java.util.Map" resultType="int">
+        select count(1)
+        from edu_trxorder_detail
+        LEFT JOIN edu_member_sale ON edu_member_sale.id = edu_trxorder_detail.course_id
+        left join edu_member_type on edu_member_sale.type=edu_member_type.id
+        left join edu_user on edu_user.user_id=edu_trxorder_detail.user_id
+        left JOIN edu_orders ON edu_trxorder_detail.trxorder_id = edu_orders.order_id
+        where edu_trxorder_detail.user_id=#{e}
+        and edu_member_type.status=0
+        AND edu_trxorder_detail.trxorderType='MEMBER'
+        AND edu_trxorder_detail.auth_status!='INIT'
+    </select>
+        <!-- 获得开通详情 -->
+        <select id="getMemberRecordInfo" parameterType="Long" resultMap="MemberRecordDTOResult">
+         select
+            <include refid="edu_member_record_columns"/>,
+            edu_member_type.title,
+            edu_user.email,
+            edu_trxorder_detail.id as id
+            from edu_trxorder_detail
+            left join edu_member_sale on edu_member_sale.id=edu_trxorder_detail.course_id
+            left join edu_member_type on edu_member_sale.type=edu_member_type.id
+			left join edu_user on edu_user.user_id=edu_trxorder_detail.user_id
+			where edu_trxorder_detail.id=#{id}
+        </select>
+        <!-- 会员关闭 -->
+        <update id="updateMemberStatus" parameterType="MemberRecord">
+	        update edu_member_record set
+	        edu_member_record.status=#{status}
+	        
+	        where edu_member_record.id=#{id}
+        </update>
+        <!--查询某人的最高等级最大结束时间的会员记录-->
+        <select id="getUserMaxMember" parameterType="Long" resultMap="MemberRecordDTOResult">
+            select
+            <include refid="edu_member_record_columns"/>,
+            edu_orders.order_no orderNo,edu_member_sale.type memberType,edu_trxorder_detail.id AS  id
+            FROM
+            `edu_trxorder_detail`
+            LEFT JOIN edu_orders ON edu_orders.order_id = edu_trxorder_detail.trxorder_id
+            LEFT JOIN edu_member_sale  ON edu_member_sale.id = edu_trxorder_detail.course_id
+            WHERE   edu_trxorder_detail.trxorderType='MEMBER' AND edu_member_sale.type = #{memberType} AND auth_time =
+            (SELECT
+            MAX(auth_time)
+            FROM
+            `edu_trxorder_detail`
+            LEFT JOIN edu_member_sale  ON edu_member_sale.id = edu_trxorder_detail.course_id
+            WHERE user_id = #{userId}
+            AND auth_time > NOW()
+            AND edu_trxorder_detail.auth_status='SUCCESS'
+            AND edu_trxorder_detail.trxorderType = 'MEMBER'
+            AND edu_member_sale.type = #{memberType}
+            )
+        </select>
+   <!-- 查看当前时间是否有会员-->
+    <select id="getUserNowDateMember" parameterType="Long" resultMap="MemberRecordDTOResult">
+        SELECT <include refid="edu_member_record_columns"/>,
+        edu_trxorder_detail.auth_status,edu_member_sale.type memberType
+        FROM `edu_trxorder_detail`
+        LEFT JOIN edu_member_sale  ON edu_member_sale.id = edu_trxorder_detail.course_id
+        WHERE NOW()>beginTime AND auth_time>NOW()
+        AND user_id = #{userId}
+        AND trxorderType='MEMBER'
+        AND edu_member_sale.type = #{memberType}
+        AND edu_trxorder_detail.auth_status = 'SUCCESS'
+    </select>
+</mapper>

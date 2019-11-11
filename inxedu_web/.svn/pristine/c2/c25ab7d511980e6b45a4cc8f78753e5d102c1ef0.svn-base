@@ -1,0 +1,8 @@
+@charset "utf-8";
+@mColor: #d44920;
+.c-master,.live-cou-box ul li.current .live-three-angle .yk-DT-arrow *,.live-cou-box ul li.current .live-cb-wrap .live-cou-time .fr a,.live-cou-box ul li .live-cb-wrap .live-course-title:hover,.c-s-dl dl ul li a:hover,.c-s-dl-li ul li.current a {  color: @mColor;}
+.bg-orange,.js-btn,.live-cou-wrap ul li.current .l-cou-box .l-cou-info,.live-cou-box ul li.current .live-cb-wrap .live-cou-time,.live-cou-wrap ul li.current .l-cou-box,.i-live-cou-list ul li.current .cc-l-wrap .i-live-sta {  background-color: @mColor;}
+.nav li.current a,.nav li a:hover,.h-r-login li a:hover,.h-r-login li a:hover,.c-tab-title a.current,.c-btn-2,.i-teach-wrap:hover a,.paging a,.paging a:hover,.paging a.current,#footer,.u-m-dd ul li a:hover,.u-m-dd ul li.current a,.d-s-head-tab a.current,.shop-car-num,.c-btn-6 {  border-color: @mColor;  color: @mColor;}
+.lh-menu ul li.lh-menu-stair ol li.lh-menu-second.current-2 a,.lh-menu ul li.lh-menu-stair ul.current-2 li.lh-menu-second a tt,.lh-menu ul li.lh-menu-stair .current-2 li.lh-menu-second a,.lh-menu ul li.lh-menu-stair ol li.lh-menu-second.current-2 a .lh-menu-i-2,.lh-menu ul li.lh-menu-stair .current-2 li.lh-menu-second a .lh-menu-i-2,.current-2 .lh-menu-second a span.fr,.lh-menu-second.current-2 span.fr,#t-infor-menu p a.current,.i-art-title:hover,.q-sort-wrap span.current {  border-color: @mColor;  color: @mColor;}
+.shopcar-box,.live-cou-box ul li.current .live-three-dot,.buyB_payPlat ul li img:hover {  border-color: @mColor!important;}
+.t-s-select .s-vv-txt:hover tt { color:@mColor;}

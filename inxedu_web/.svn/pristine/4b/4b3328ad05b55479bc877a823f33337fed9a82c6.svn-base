@@ -1,0 +1,63 @@
+.u-m-c-wrap .Binding {
+    margin: 50px auto 0;
+    width: 640px;
+}
+
+.tac {
+    text-align: center;
+}
+
+.f-fM, tt, select, input, samp {
+    font-family: "Hiragino Sans GB", "Microsoft YaHei";
+}
+
+.c-orange, .error {
+    color: #ff7a01;
+}
+
+.clearfix::after {
+    clear: both;
+    content: "";
+    display: block;
+    height: 0;
+    overflow: hidden;
+}
+
+.u-m-c-wrap .Binding-list {
+    margin-top: 60px;
+}
+
+.u-m-c-wrap .Binding-list li {
+    float: left;
+    text-align: center;
+    width: 33.3%;
+}
+
+.u-m-c-wrap .Binding-list .Binding-qq span {
+    background: rgba(0, 0, 0, 0) url("/static/inxweb/img/bd-qq.png") no-repeat scroll center center;
+}
+
+.u-m-c-wrap .Binding-list .Binding-xl span {
+    background: rgba(0, 0, 0, 0) url("/static/inxweb/img/bd-xl.png") no-repeat scroll center center;
+}
+
+.u-m-c-wrap .Binding-list .Binding-wx span {
+    background: rgba(0, 0, 0, 0) url("/static/inxweb/img/bd-wx.png") no-repeat scroll center center;
+}
+
+.u-m-c-wrap .Binding-list li span {
+    display: inline-block;
+    height: 65px;
+    width: 65px;
+}
+.u-m-c-wrap .Binding-list li .ljbd-btn, .uploadBtnWrap .ljbd-btn {
+    background-color: #72cd91;
+    border-radius: 3px;
+    color: #fff;
+    display: inline-block;
+    font: 14px/32px "Microsoft YaHei";
+    height: 32px;
+    text-align: center;
+    text-decoration: none;
+    width: 108px;
+}

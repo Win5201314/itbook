@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zsl.xiangqing.mapper.LoginInformationMapper" >
+    <insert id="insertLoginInformation" useGeneratedKeys="true" keyProperty="infoId">
+        insert into LoginInformation (loginName, status, ipAddress, loginLocation, browser, os, msg, loginTime)
+         values (#{loginName}, #{status}, #{ipAddress}, #{loginLocation}, #{browser}, #{os}, #{msg}, now())
+    </insert>
+</mapper>

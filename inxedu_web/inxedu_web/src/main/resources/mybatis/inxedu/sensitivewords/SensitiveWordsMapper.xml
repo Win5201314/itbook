@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SensitiveWordsMapper">
+	<resultMap id="SensitiveWordsResult" type="SensitiveWords">
+			<result property="id" column="id" />
+			<result property="sensitiveWord" column="sensitiveWord" />
+	</resultMap>
+	
+	<sql id="edu_sensitive_words_columns">
+			edu_sensitive_words.id,
+			edu_sensitive_words.sensitiveWord
+	</sql>
+
+	<sql id="edu_sensitive_words_properties">
+			#{id},
+			#{sensitiveWord}
+	</sql>
+
+	<!-- 添加SensitiveWords --> 
+	<insert id="addSensitiveWords" parameterType="SensitiveWords" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO edu_sensitive_words (
+		<include refid="edu_sensitive_words_columns" />
+		)
+		VALUES(
+		<include refid="edu_sensitive_words_properties" />
+		)
+	</insert>
+
+	<!-- 删除SensitiveWords -->
+	<delete id="delSensitiveWordsById" parameterType="long">
+		DELETE FROM edu_sensitive_words WHERE edu_sensitive_words.id = #{value}
+	</delete>
+
+	<!-- 修改SensitiveWords -->
+	<update id="updateSensitiveWords" parameterType="SensitiveWords">
+		UPDATE edu_sensitive_words SET
+			edu_sensitive_words.id = #{id},
+			edu_sensitive_words.sensitiveWord = #{sensitiveWord}
+		WHERE edu_sensitive_words.id = #{id}
+	</update>
+
+	<!-- 根据id获取单个SensitiveWords对象 -->
+	<select id="getSensitiveWordsById" resultMap="SensitiveWordsResult" parameterType="long">
+		SELECT
+		<include refid="edu_sensitive_words_columns" />
+		FROM edu_sensitive_words WHERE edu_sensitive_words.id = #{value}
+	</select>
+
+	<!-- 根据条件获取SensitiveWords分页列表 -->
+	<select id="querySensitiveWordsListPage" resultMap="SensitiveWordsResult" parameterType="java.util.Map">
+		SELECT
+		<include refid="edu_sensitive_words_columns" />
+		FROM edu_sensitive_words
+		<where>
+					<if test="e.id !=null and e.id>0">
+						AND edu_sensitive_words.id = #{e.id}
+					</if>
+					<if test="e.sensitiveWord!=null and e.sensitiveWord!='' ">
+						AND edu_sensitive_words.sensitiveWord LIKE CONCAT('%',#{e.sensitiveWord},'%')
+					</if>
+		</where>
+		<include refid="publicMapper.pageEnd"/>
+	</select>
+	<select id="querySensitiveWordsListPageCount" resultType="int" parameterType="java.util.Map">
+		SELECT
+		COUNT(1)
+		FROM edu_sensitive_words
+		<where>
+					<if test="e.id !=null and e.id>0">
+						AND edu_sensitive_words.id = #{e.id}
+					</if>
+					<if test="e.sensitiveWord!=null and e.sensitiveWord!='' ">
+						AND edu_sensitive_words.sensitiveWord LIKE CONCAT('%',#{e.sensitiveWord},'%')
+					</if>
+		</where>
+	</select>
+
+	<!-- 根据条件获取SensitiveWords列表 -->
+	<select id="querySensitiveWordsList" parameterType="SensitiveWords" resultMap="SensitiveWordsResult">
+		SELECT 
+			<include refid="edu_sensitive_words_columns" />
+		FROM edu_sensitive_words
+		<where>
+					<if test="id !=null and id>0">
+						AND edu_sensitive_words.id = #{id}
+					</if>
+					<if test="sensitiveWord!=null and sensitiveWord!='' ">
+						AND edu_sensitive_words.sensitiveWord LIKE CONCAT('%',#{e.sensitiveWord},'%')
+					</if>
+		</where>
+	</select>
+</mapper>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2d97101b-6ae8-4a2b-89c0-b7720ec86d17" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/inxedu-common/inxedu-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inxedu-coupon/inxedu-coupon.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inxedu-course-card/inxedu-course-card.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inxedu-live/inxedu-live.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inxedu-third-party-login/inxedu-third-party-login.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inxedu.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inxedu_web/inxedu_web.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu-account/inxedu-account.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu-invite/inxedu-invite.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu-member/inxedu-member.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_upload/inxedu_upload.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/about.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/advtable/advtable.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/advtable/advtable.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/advtable/cell.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/advtable/cell.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/baidumap/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/baidumap/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/baidumap/map.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/baidumap/map.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/file_manager/file_manager.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/file_manager/file_manager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/flash.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/flash.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/image/call_back.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/image/call_back.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/image/call_back3.5.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/image/call_back3.5.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/image/image.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/image/image.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/image/redirect.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/image/redirect.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/link/link.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/link/link.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/map/map.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/map/map.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/media.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/media.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/plainpaste.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/plainpaste.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/template/html/1.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/template/html/1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/template/html/2.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/template/html/2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/template/html/3.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/template/html/3.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/wordpaste.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_upload/src/main/webapp/kindeditor/plugins/wordpaste.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/resources/applicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/resources/applicationContext.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/resources/spring-mvc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/resources/spring-mvc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/WEB-INF/lib/sigar-x86-winnt.dll" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/WEB-INF/lib/sigar-x86-winnt.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/about.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/advtable/advtable.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/advtable/advtable.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/advtable/cell.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/advtable/cell.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/baidumap/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/baidumap/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/baidumap/map.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/baidumap/map.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/file_manager/file_manager.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/file_manager/file_manager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/flash.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/flash.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/image/call_back.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/image/call_back.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/image/image.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/image/image.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/image/redirect.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/image/redirect.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/link/link.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/link/link.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/map/map.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/map/map.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/media.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/media.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/plainpaste.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/plainpaste.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/template/html/1.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/template/html/1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/template/html/2.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/template/html/2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/template/html/3.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/template/html/3.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/wordpaste.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/kindeditor/plugins/wordpaste.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/static/admin/css/images/ui-bg_flat_0_aaaaaa_40x100.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/static/admin/css/images/ui-bg_flat_0_aaaaaa_40x100.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/static/admin/css/images/ui-bg_glass_55_fbf9ee_1x400.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/static/admin/css/images/ui-bg_glass_55_fbf9ee_1x400.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/static/admin/css/images/ui-bg_glass_95_fef1ec_1x400.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/static/admin/css/images/ui-bg_glass_95_fef1ec_1x400.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/static/admin/css/smoothness/jquery-ui-1.7.2.custom.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/static/admin/css/smoothness/jquery-ui-1.7.2.custom.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/static/common/jerichotab/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/static/common/jerichotab/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/static/common/nice-validator/demo/full-example.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/static/common/nice-validator/demo/full-example.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/static/common/nice-validator/demo/load-by-requirejs.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/static/common/nice-validator/demo/load-by-requirejs.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/static/common/nice-validator/demo/load-by-seajs.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/static/common/nice-validator/demo/load-by-seajs.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/static/common/nice-validator/demo/load-in-global.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/static/common/nice-validator/demo/load-in-global.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/anchor/anchor.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/anchor/anchor.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/attachment/attachment.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/attachment/attachment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/background/background.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/background/background.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/charts/charts.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/charts/charts.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/emotion/emotion.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/emotion/emotion.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/gmap/gmap.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/gmap/gmap.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/help/help.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/help/help.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/image/image.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/image/image.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/insertframe/insertframe.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/insertframe/insertframe.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/link/link.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/link/link.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/map/map.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/map/map.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/map/show.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/map/show.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/music/music.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/music/music.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/preview/preview.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/preview/preview.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/scrawl/scrawl.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/scrawl/scrawl.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/searchreplace/searchreplace.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/searchreplace/searchreplace.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/snapscreen/snapscreen.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/snapscreen/snapscreen.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/spechars/spechars.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/spechars/spechars.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/table/edittable.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/table/edittable.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/table/edittd.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/table/edittd.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/table/edittip.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/table/edittip.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/template/template.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/template/template.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/video/video.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/video/video.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/webapp/webapp.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/webapp/webapp.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/wordimage/wordimage.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/dialogs/wordimage/wordimage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/inxedu_web/src/main/webapp/ueditor/index.html" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>mvc:annotation-driven</find>
+    </findStrings>
+  </component>
+  <component name="ProjectId" id="1QEm2xEyKhjhku1xQsdU57NPE2M" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1566212282953" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\Administrator\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="SvnFileUrlMappingImpl">
+    <option name="myMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="G:\itbook\inxedu_web" />
+          <option name="myCopyRoot" value="G:\itbook\inxedu_web" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+    <option name="myMoreRealMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="G:\itbook\inxedu_web" />
+          <option name="myCopyRoot" value="G:\itbook\inxedu_web" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2d97101b-6ae8-4a2b-89c0-b7720ec86d17" name="Default Changelist" comment="" />
+      <created>1565943489302</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1565943489302</updated>
+      <workItem from="1565943511487" duration="21845000" />
+      <workItem from="1567343929431" duration="7345000" />
+      <workItem from="1567405615782" duration="3836000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

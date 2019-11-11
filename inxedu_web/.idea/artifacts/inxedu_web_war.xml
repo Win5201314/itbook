@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="inxedu_web:war">
+    <output-path>$PROJECT_DIR$/inxedu_web/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>inxedu_web</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="inxedu_web.war">
+      <element id="artifact" artifact-name="inxedu_web:war exploded" />
+    </root>
+  </artifact>
+</component>

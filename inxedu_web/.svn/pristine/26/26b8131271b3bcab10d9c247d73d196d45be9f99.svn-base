@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd" default-autowire="byName">
+
+    <!-- 优惠券过期定时器 -->
+    <bean id="couponCodeJob" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean" lazy-init="false">
+        <property name="jobDetail">
+            <bean class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+                <property name="targetObject">
+                    <ref bean="couponCodeService" />
+                </property>
+                <property name="targetMethod">
+                    <value>overdueCodeByTime</value>
+                </property>
+                <property name="concurrent">
+                    <value>false</value>
+                </property>
+            </bean>
+        </property>
+        <property name="cronExpression">
+            <value>0 30 0 * * ?</value><!-- 每天0点30触发 -->
+        </property>
+    </bean>
+
+	<!-- 定时器配置 lazy-init='false'-->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean"  lazy-init="false" autowire="no"> 
+		<property name="triggers"> 
+			<list>
+                <!-- 优惠券过期定时器-->
+                <ref bean="couponCodeJob"/>
+			</list>
+		</property> 
+	</bean>
+	
+	
+</beans>

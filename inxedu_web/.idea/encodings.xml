@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" addBOMForNewFiles="with NO BOM">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/inxedu-account" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/inxedu-common" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/inxedu-coupon" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/inxedu-course-card" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/inxedu-invite" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/inxedu-live" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/inxedu-member" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/inxedu-third-party-login" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/inxedu_upload" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/inxedu_web" charset="UTF-8" />
+  </component>
+</project>

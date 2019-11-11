@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="InvitationRecordMapper">
+	<resultMap id="InvitationRecordResult" type="InvitationRecord">
+			<result property="id" column="id" />
+			<result property="userId" column="user_id" />
+			<result property="invitationUserId" column="invitation_user_id" />
+			<result property="cashback" column="cashback" />
+			<result property="addTime" column="add_time" />
+	</resultMap>
+
+	<resultMap id="InvitationRecordDtoResult" type="InvitationRecordDto" extends="InvitationRecordResult">
+			<result property="id" column="id" />
+			<result property="userId" column="user_id" />
+			<result property="invitationUserId" column="invitation_user_id" />
+			<result property="cashback" column="cashback" />
+			<result property="addTime" column="add_time" />
+	</resultMap>
+
+	<sql id="edu_invitation_record_columns">
+			edu_invitation_record.id,
+			edu_invitation_record.user_id,
+			edu_invitation_record.invitation_user_id,
+			edu_invitation_record.cashback,
+			edu_invitation_record.add_time
+	</sql>
+
+	<sql id="edu_invitation_record_properties">
+			#{id},
+			#{userId},
+			#{invitationUserId},
+			#{cashback},
+			#{addTime}
+	</sql>
+
+	<!-- 添加InvitationRecord --> 
+	<insert id="addInvitationRecord" parameterType="InvitationRecord" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO edu_invitation_record (
+		<include refid="edu_invitation_record_columns" />
+		)
+		VALUES(
+		<include refid="edu_invitation_record_properties" />
+		)
+	</insert>
+
+	<!-- 删除InvitationRecord -->
+	<delete id="delInvitationRecordById" parameterType="long">
+		DELETE FROM edu_invitation_record WHERE edu_invitation_record.id = #{value}
+	</delete>
+
+	<!-- 修改InvitationRecord -->
+	<update id="updateInvitationRecord" parameterType="InvitationRecord">
+		UPDATE edu_invitation_record SET
+			edu_invitation_record.id = #{id},
+			edu_invitation_record.user_id = #{userId},
+			edu_invitation_record.invitation_user_id = #{invitationUserId},
+			edu_invitation_record.cashback = #{cashback},
+			edu_invitation_record.add_time = #{addTime}
+		WHERE edu_invitation_record.id = #{id}
+	</update>
+
+	<!-- 根据id获取单个InvitationRecord对象 -->
+	<select id="getInvitationRecordById" resultMap="InvitationRecordResult" parameterType="long">
+		SELECT
+		<include refid="edu_invitation_record_columns" />
+		FROM edu_invitation_record WHERE edu_invitation_record.id = #{value}
+	</select>
+
+	<!-- 根据条件获取InvitationRecord分页列表 -->
+	<select id="queryInvitationRecordListPage" resultMap="InvitationRecordDtoResult" parameterType="java.util.Map">
+		SELECT
+		<include refid="edu_invitation_record_columns" />,
+		IF(edu_user.SHOW_NAME!='' AND edu_user.SHOW_NAME IS NOT NULL ,edu_user.SHOW_NAME,
+		IF(edu_user.EMAIL!='' AND edu_user.EMAIL IS NOT NULL,edu_user.EMAIL,
+		IF(edu_user.mobile!='' AND edu_user.mobile IS NOT NULL,mobile,
+		IF(edu_user.USER_NAME!='' AND edu_user.USER_NAME IS NOT NULL,edu_user.USER_NAME,NULL)) ))AS displayName,
+		edu_user.register_from as registerFrom
+		FROM edu_invitation_record
+		LEFT JOIN edu_user on edu_user.user_id=edu_invitation_record.invitation_user_id
+		<where>
+					<if test="e.id !=null and e.id>0">
+						AND edu_invitation_record.id = #{e.id}
+					</if>
+					<if test="e.userId!=null and e.userId!='' ">
+						AND edu_invitation_record.user_id = #{e.userId}
+					</if>
+					<if test="e.invitationUserId!=null and e.invitationUserId!='' ">
+						AND edu_invitation_record.invitation_user_id = #{e.invitationUserId}
+					</if>
+					<if test="e.cashback!=null and e.cashback!='' ">
+						AND edu_invitation_record.cashback = #{e.cashback}
+					</if>
+					<if test="e.addTime!=null and e.addTime!='' ">
+						AND <![CDATA[ edu_invitation_record.add_time = #{e.addTime} ]]>
+					</if>
+		</where>
+		<include refid="publicMapper.pageEnd"/>
+	</select>
+	<select id="queryInvitationRecordListPageCount" resultType="int" parameterType="java.util.Map">
+		SELECT
+		COUNT(1)
+		FROM edu_invitation_record
+		<where>
+					<if test="e.id !=null and e.id>0">
+						AND edu_invitation_record.id = #{e.id}
+					</if>
+					<if test="e.userId!=null and e.userId!='' ">
+						AND edu_invitation_record.user_id = #{e.userId}
+					</if>
+					<if test="e.invitationUserId!=null and e.invitationUserId!='' ">
+						AND edu_invitation_record.invitation_user_id = #{e.invitationUserId}
+					</if>
+					<if test="e.cashback!=null and e.cashback!='' ">
+						AND edu_invitation_record.cashback = #{e.cashback}
+					</if>
+					<if test="e.addTime!=null and e.addTime!='' ">
+						AND <![CDATA[ edu_invitation_record.add_time = #{e.addTime} ]]>
+					</if>
+		</where>
+	</select>
+
+	<!-- 根据条件获取InvitationRecord列表 -->
+	<select id="queryInvitationRecordList" parameterType="InvitationRecord" resultMap="InvitationRecordResult">
+		SELECT 
+			<include refid="edu_invitation_record_columns" />
+		FROM edu_invitation_record
+		<where>
+					<if test="id !=null and id>0">
+						AND edu_invitation_record.id = #{id}
+					</if>
+					<if test="userId!=null and userId!='' ">
+						AND edu_invitation_record.user_id = #{userId}
+					</if>
+					<if test="invitationUserId!=null and invitationUserId!='' ">
+						AND edu_invitation_record.invitation_user_id = #{invitationUserId}
+					</if>
+					<if test="cashback!=null and cashback!='' ">
+						AND edu_invitation_record.cashback = #{cashback}
+					</if>
+					<if test="addTime!=null and addTime!='' ">
+						AND <![CDATA[ edu_invitation_record.add_time = #{addTime} ]]>
+					</if>
+		</where>
+	</select>
+</mapper>

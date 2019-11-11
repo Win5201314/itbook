@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CourseKpointAtlasMapper">
+
+	<resultMap id="CourseKpointAtlasResult" type="CourseKpointAtlas">
+		<result property="id" column="id" />
+		<result property="kpointId" column="kpoint_id" />
+		<result property="url" column="url" />
+		<result property="urlThumbnail" column="url_thumbnail" />
+	</resultMap>
+
+	<sql id="edu_course_kpoint_atlas_columns">
+		edu_course_kpoint_atlas.id,
+		edu_course_kpoint_atlas.kpoint_id,
+		edu_course_kpoint_atlas.url,
+		edu_course_kpoint_atlas.url_thumbnail
+	</sql>
+
+	<sql id="edu_course_kpoint_atlas_properties">
+		#{id},
+		#{kpointId},
+		#{url},
+		#{urlThumbnail}
+	</sql>
+
+	<insert id="createCourseKpointAtlas" parameterType="CourseKpointAtlas" >
+		insert into edu_course_kpoint_atlas (
+		<include refid="edu_course_kpoint_atlas_columns" />
+		) values
+		(<include refid="edu_course_kpoint_atlas_properties" />)
+	</insert>
+
+	<update id="updateCourseKpointAtlas" parameterType="CourseKpointAtlas">
+		update edu_course_kpoint_atlas set
+		 url=#{url},
+		 url_thumbnail=#{urlThumbnail}
+		 where kpoint_id=#{kpointId}
+	</update>
+	<delete id="deleteCourseKpointAtlasById" parameterType="String">
+		delete from
+		edu_course_kpoint_atlas
+		where
+		kpoint_id in (${value})
+	</delete>
+
+	<select id="queryKpointAtlasByKpointId" resultMap="CourseKpointAtlasResult" parameterType="Long">
+		select
+		<include refid="edu_course_kpoint_atlas_columns" />
+		from edu_course_kpoint_atlas
+		<where>
+			edu_course_kpoint_atlas.kpoint_id=#{value}
+		</where>
+	</select>
+</mapper>

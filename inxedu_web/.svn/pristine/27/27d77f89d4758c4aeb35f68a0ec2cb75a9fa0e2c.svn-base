@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="OrderMapper">
+
+	<resultMap type="Order" id="OrderResult">
+		<result property="orderId" column="ORDER_ID" />
+		<result property="userId" column="USER_ID"/>
+		<result property="orderNo" column="ORDER_NO"/>
+		<result property="sumMoney" column="SUM_MONEY"/>
+		<result property="states" column="STATES"/>
+		<result property="createTime" column="CREATE_TIME"/>
+		<result property="payTime" column="PAY_TIME"/>
+		<result property="sysUserId" column="SYS_USER_ID"/>
+		<result property="payType" column="PAY_TYPE"/>
+		<result property="reqChannel" column="req_channel"/>
+		<result property="description" column="description"/>
+		<result property="version" column="version"/>
+		<result property="reqIp" column="req_ip"/>
+		<result property="orderAmount" column="order_amount"/>
+		<result property="cashAmount" column="cashAmount"/>
+		<result property="vmAmount" column="vmAmount"/>
+		<result property="backAmount" column="backAmount"/>
+		<result property="couponAmount" column="coupon_amount"/>
+		<result property="couponCodeId" column="couponCode_id"/>
+		<result property="refundAmount" column="refund_amount"/>
+		<result property="outTradeNo" column="out_trade_no"/>
+		<result property="orderType" column="orderType"/>
+
+	</resultMap>
+
+
+
+	<sql id="edu_orders_column">
+		EDU_ORDERS.ORDER_ID,
+		EDU_ORDERS.USER_ID,
+		EDU_ORDERS.ORDER_NO,
+		EDU_ORDERS.SUM_MONEY,
+		EDU_ORDERS.STATES,
+		EDU_ORDERS.CREATE_TIME,
+		EDU_ORDERS.PAY_TIME,
+		EDU_ORDERS.SYS_USER_ID,
+		EDU_ORDERS.PAY_TYPE,
+		EDU_ORDERS.req_channel,
+		EDU_ORDERS.description,
+		EDU_ORDERS.version,
+		EDU_ORDERS.req_ip,
+		EDU_ORDERS.order_amount,
+		EDU_ORDERS.cashAmount,
+		EDU_ORDERS.vmAmount,
+		EDU_ORDERS.backAmount,
+		EDU_ORDERS.coupon_amount,
+		EDU_ORDERS.couponCode_id,
+		EDU_ORDERS.refund_amount,
+		EDU_ORDERS.out_trade_no,
+		EDU_ORDERS.orderType
+	</sql>
+	<sql id="edu_orders_property">
+		#{orderId},
+		#{userId},
+		#{orderNo},
+		#{sumMoney},
+		#{states},
+		#{createTime},
+		#{payTime},
+		#{sysUserId},
+		#{payType},
+		#{reqChannel},
+		#{description},
+		#{version},
+		#{reqIp},
+		#{orderAmount},
+		#{cashAmount},
+		#{vmAmount},
+		#{backAmount},
+		#{couponAmount},
+		#{couponCodeId},
+		#{refundAmount},
+		#{outTradeNo},
+		#{orderType}
+	</sql>
+
+	<resultMap type="Course" id="TrxCourseResult">
+		<result property="courseId" column="COURSE_ID" />
+		<result property="courseName" column="COURSE_NAME" />
+		<result property="isavaliable" column="IS_AVALIABLE"/>
+		<result property="subjectId" column="SUBJECT_ID"/>
+		<result property="addTime" column="ADD_TIME"/>
+		<result property="sourcePrice" column="SOURCE_PRICE"/>
+		<result property="currentPrice" column="CURRENT_PRICE"/>
+		<result property="title" column="TITLE"/>
+		<result property="context" column="CONTEXT"/>
+		<result property="lessionNum" column="LESSION_NUM"/>
+		<result property="logo" column="LOGO"/>
+		<result property="updateTime" column="UPDATE_TIME"/>
+		<result property="pageBuycount" column="PAGE_BUYCOUNT"/>
+		<result property="pageViewcount" column="PAGE_VIEWCOUNT"/>
+		<result property="endTime" column="END_TIME"/>
+		<result property="loseType" column="LOSETYPE"/>
+		<result property="loseTime" column="LOSE_TIME"/>
+	</resultMap>
+
+	<!-- 创建订单 -->
+	<insert id="createOrder" parameterType="Order" useGeneratedKeys="true" keyColumn="ORDER_ID" keyProperty="orderId">
+		INSERT INTO EDU_ORDERS(
+		<include refid="edu_orders_column" />
+		)
+		VALUE(
+		<include refid="edu_orders_property" />
+		)
+	</insert>
+
+	<!-- 更新订单状态为支付成功状态 -->
+	<update id="updateOrderSuccess" parameterType="Order">
+		UPDATE EDU_ORDERS SET
+		EDU_ORDERS.STATES=#{states},
+		EDU_ORDERS.cashAmount=#{cashAmount},
+		EDU_ORDERS.vmAmount=#{vmAmount},
+		EDU_ORDERS.backAmount=#{backAmount},
+		EDU_ORDERS.PAY_TIME=#{payTime},
+		EDU_ORDERS.SYS_USER_ID=#{sysUserId}
+		WHERE EDU_ORDERS.ORDER_NO=#{orderNo}
+	</update>
+
+	<!-- 取消或恢复订单 -->
+	<update id="updateOrderState" parameterType="Order">
+		UPDATE EDU_ORDERS SET
+		EDU_ORDERS.STATES=#{states}
+		WHERE EDU_ORDERS.ORDER_ID=#{orderId}
+	</update>
+
+	<!-- 前后台共用，分页查询订单,开始 -->
+	<select id="queryOrderListPage" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+		EDU_ORDERS.ORDER_ID as orderId,
+		EDU_ORDERS.ORDER_NO as orderNo,
+		EDU_ORDERS.SUM_MONEY as sumMoney,
+		EDU_ORDERS.STATES as states,
+		EDU_ORDERS.CREATE_TIME as createTime,
+		EDU_ORDERS.PAY_TIME as payTime,
+		EDU_ORDERS.PAY_TYPE as payType,
+		EDU_ORDERS.out_trade_no as outTradeNo,
+		EDU_ORDERS.orderType AS orderType,
+		EDU_USER.EMAIL as email,
+		EDU_USER.SHOW_NAME as userName,
+		EDU_USER.MOBILE as mobile,
+		SYS_USER.LOGIN_NAME as loginName
+		FROM EDU_ORDERS
+		LEFT JOIN EDU_USER ON EDU_USER.USER_ID = EDU_ORDERS.USER_ID
+		LEFT JOIN SYS_USER ON SYS_USER.USER_ID = EDU_ORDERS.SYS_USER_ID
+		<where>
+			<if test="e.keyWord!=null and e.keyWord!=''">
+				AND EDU_ORDERS.ORDER_NO LIKE CONCAT('%',#{e.keyWord},'%')
+			</if>
+			<if test="e.beginCreateTime!=null and e.beginCreateTime!=''">
+				AND EDU_ORDERS.CREATE_TIME >= #{e.beginCreateTime}
+			</if>
+			<if test="e.showName!=null and e.showName!=''">
+				AND EDU_USER.SHOW_NAME LIKE CONCAT('%',#{e.showName},'%')
+			</if>
+			<if test="e.endCreateTime!=null and e.endCreateTime!=''">
+				AND <![CDATA[EDU_ORDERS.CREATE_TIME <= #{e.endCreateTime}]]>
+			</if>
+			<if test="e.beginPayTime!=null and e.beginPayTime!=''">
+				AND EDU_ORDERS.PAY_TIME >= #{e.beginPayTime}
+			</if>
+			<if test="e.endPayTime!=null and e.endPayTime!=''">
+				AND <![CDATA[ EDU_ORDERS.PAY_TIME <= #{e.endPayTime}]]>
+			</if>
+			<if test="e.userId>0">
+				AND EDU_ORDERS.USER_ID=#{e.userId}
+			</if>
+			<if test="e.states!=null and e.states!='' and e.states!='all'">
+				AND EDU_ORDERS.STATES=#{e.states}
+			</if>
+			<if test="e.payType!=null and e.payType!=''">
+				AND EDU_ORDERS.PAY_TYPE = #{e.payType}
+			</if>
+			<if test="e.orderType!=null and e.orderType!=''">
+				AND EDU_ORDERS.orderType = #{e.orderType}
+			</if>
+		</where>
+		ORDER BY EDU_ORDERS.CREATE_TIME DESC
+		<include refid="publicMapper.pageEnd" />
+	</select>
+	<select id="queryOrderListPageCount" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(1) FROM EDU_ORDERS
+		LEFT JOIN EDU_USER ON EDU_USER.USER_ID = EDU_ORDERS.USER_ID
+		LEFT JOIN SYS_USER ON SYS_USER.USER_ID = EDU_ORDERS.SYS_USER_ID
+		<where>
+			<if test="e.keyWord!=null and e.keyWord!=''">
+				AND (EDU_ORDERS.ORDER_NO LIKE CONCAT('%',#{e.keyWord},'%')
+				OR EDU_USER.EMAIL LIKE CONCAT('%',#{e.keyWord},'%')
+				OR EDU_USER.SHOW_NAME LIKE CONCAT('%',#{e.keyWord},'%')
+				OR EDU_USER.MOBILE LIKE CONCAT('%',#{e.keyWord},'%')
+				OR EDU_ORDERS.out_trade_no LIKE CONCAT('%',#{e.keyWord},'%')
+				)
+			</if>
+			<if test="e.beginCreateTime!=null and e.beginCreateTime!=''">
+				AND EDU_ORDERS.CREATE_TIME >= #{e.beginCreateTime}
+			</if>
+			<if test="e.endCreateTime!=null and e.endCreateTime!=''">
+				AND <![CDATA[EDU_ORDERS.CREATE_TIME <= #{e.endCreateTime}]]>
+			</if>
+			<if test="e.beginPayTime!=null and e.beginPayTime!=''">
+				AND EDU_ORDERS.PAY_TIME >= #{e.beginPayTime}
+			</if>
+			<if test="e.endPayTime!=null and e.endPayTime!=''">
+				AND <![CDATA[ EDU_ORDERS.PAY_TIME <= #{e.endPayTime}]]>
+			</if>
+			<if test="e.userId>0">
+				AND EDU_ORDERS.USER_ID=#{e.userId}
+			</if>
+			<if test="e.states!=null and e.states!='' and e.states!='all'">
+				AND EDU_ORDERS.STATES=#{e.states}
+			</if>
+			<if test="e.payType!=null and e.payType!=''">
+				AND EDU_ORDERS.PAY_TYPE = #{e.payType}
+			</if>
+			<if test="e.orderType!=null and e.orderType!=''">
+				AND EDU_ORDERS.orderType = #{e.orderType}
+			</if>
+		</where>
+	</select>
+	<!-- 分页查询订单,结束 -->
+
+	<!-- 查询用户不同状态的订单数量 -->
+	<select id="queryOrderStateCount" parameterType="Order" resultType="int">
+		SELECT COUNT(1) FROM EDU_ORDERS WHERE EDU_ORDERS.USER_ID=#{userId} AND EDU_ORDERS.STATES=#{states}
+	</select>
+
+	<select id="queryOrderById" parameterType="int" resultMap="OrderResult">
+		SELECT
+			<include refid="edu_orders_column" />
+		FROM EDU_ORDERS WHERE EDU_ORDERS.ORDER_ID=#{value}
+	</select>
+
+	<select id="queryOrderCount" parameterType="Order" resultType="int">
+		SELECT COUNT(1) FROM EDU_ORDERS
+	</select>
+	
+	<select id="queryOrder" parameterType="Order" resultType="Order">
+		EDU_ORDERS.CREATE_TIME as createTime,
+		edu_user.email ,
+		edu_user.showName,
+		edu_user.PIC_IMG  picImg,
+		EDU_COURSE.COURSE_NAME  courseName
+		FROM EDU_ORDERS
+		LEFT JOIN edu_user  on EDU_ORDERS.USER_ID = edu_user.user_id
+		LEFT JOIN EDU_COURSE ON EDU_COURSE.COURSE_ID = EDU_ORDERS.COURSE_ID
+		WHERE 1=1
+		order by EDU_ORDERS.CREATE_TIME desc
+		<if test="limitNum>0">
+			limit #{limitNum}
+		</if>
+	</select>
+	<!-- 查询所有的订单数量 -->
+	<select id="queryAllOrderCount" resultType="int">
+		SELECT COUNT(1) FROM EDU_ORDERS
+	</select>
+	<!-- 已支付和为支付的订单数量 -->
+	<select id="queryOrderSuccessCount" parameterType="String" resultType="int">
+		SELECT COUNT(1) FROM EDU_ORDERS WHERE EDU_ORDERS.STATES=#{value}
+	</select>
+	
+	<!-- 更新订单 -->
+	<update id="updateOrder" parameterType="Order">
+		UPDATE EDU_ORDERS SET
+		EDU_ORDERS.STATES=#{states},
+		EDU_ORDERS.SUM_MONEY=#{sumMoney},
+		EDU_ORDERS.coupon_amount=#{couponAmount},
+		EDU_ORDERS.couponCode_id=#{couponCodeId},
+		EDU_ORDERS.ORDER_NO=#{orderNo},
+		EDU_ORDERS.description=#{description},
+		EDU_ORDERS.req_ip = #{reqIp},
+		EDU_ORDERS.req_channel = #{reqChannel},
+		EDU_ORDERS.version = #{version},
+		pay_type = #{payType},
+		refund_amount = #{refundAmount}
+		WHERE EDU_ORDERS.ORDER_NO=#{orderNo}
+	</update>
+
+	<!-- 根据requestId获取单个订单的信息 支付回调使用 -->
+	<select id="getTrxorderByRequestId" resultType="Order" resultMap="OrderResult">
+		select
+		<include refid="edu_orders_column" />
+		from edu_orders
+		where ORDER_NO = #{value}
+	</select>
+
+	<!-- 更新订单状态为成功，网银回调 -->
+	<update id="updateTrxorderStatusSuccess" parameterType="Order">
+		update
+		edu_orders
+		set
+		pay_time = #{payTime},
+		STATES = #{states},
+		cashAmount = #{cashAmount},
+		vmAmount = #{vmAmount},
+		backAmount = #{backAmount},
+		pay_type = #{payType},
+		out_trade_no = #{outTradeNo},
+		version =version+1
+		where ORDER_NO = #{orderNo}
+	</update>
+
+	<!-- 订单id查询流水的课程集合 -->
+	<select id="getTrxCourseByRequestId" parameterType="String"
+			resultMap="TrxCourseResult">
+		SELECT
+		EDU_COURSE.COURSE_ID,
+		EDU_COURSE.COURSE_NAME,
+		EDU_COURSE.IS_AVALIABLE,
+		EDU_COURSE.SUBJECT_ID,
+		EDU_COURSE.ADD_TIME,
+		EDU_COURSE.SOURCE_PRICE,
+		EDU_COURSE.CURRENT_PRICE,
+		EDU_COURSE.TITLE,
+		EDU_COURSE.CONTEXT,
+		EDU_COURSE.LESSION_NUM,
+		EDU_COURSE.LOGO,
+		EDU_COURSE.UPDATE_TIME,
+		EDU_COURSE.PAGE_BUYCOUNT,
+		EDU_COURSE.PAGE_VIEWCOUNT,
+		EDU_COURSE.END_TIME,
+		EDU_COURSE.LOSETYPE,
+		EDU_COURSE.LOSE_TIME,
+		EDU_COURSE.SELL_TYPE sellType,
+		EDU_COURSE.SEQUENCE
+		from edu_course
+		WHERE
+			edu_course.COURSE_ID
+			IN (
+				SELECT trx.course_id from edu_trxorder_detail as trx
+				WHERE trx.request_id=#{value} AND trx.trxorderType = 'COURSE'
+			)
+	</select>
+
+
+	<resultMap type="Order" id="ContractDetailed">
+		<result property="orderNo" column="orderNo" />
+		<result property="sumMoney" column="sumMoney" />
+		<result property="couponAmount" column="couponAmount" />
+		<result property="createTime" column="createTime" />
+		<result property="payTime" column="payTime" />
+		<result property="states" column="states" />
+		<result property="payType" column="payType" />
+		<result property="orderId" column="orderId" />
+		<result property="orderType" column="orderType" />
+		<collection property="trxorderDetailList" ofType="TrxorderDetailDTO">
+			<result column="trxorderDetailId" property="trxorderDetailId" />
+			<result column="courseId" property="courseId" />
+			<result column="currentPrice" property="currentPirce" />
+			<result column="courseName" property="courseName" />
+			<result column="courseImgUrl" property="courseImgUrl" />
+			<result column="courseTitle" property="courseTitle" />
+			<result column="lessionNum" property="lessionNum" />
+			<result column="sellType" property="sellType" />
+		</collection>
+	</resultMap>
+
+	<!-- 个人中订单信息 -->
+	<select id="queryOrderForUc" resultMap="ContractDetailed" parameterType="java.util.HashMap">
+		SELECT
+		edu_orders.ORDER_NO orderNo,
+		IFNULL(edu_orders.SUM_MONEY,0) AS sumMoney,
+		edu_orders.ORDER_ID AS orderId,
+		edu_orders.CREATE_TIME AS createTime,
+		edu_orders.pay_time AS payTime,
+		edu_orders.STATES AS states,
+		edu_orders.pay_type AS payType,
+		edu_orders.coupon_amount AS couponAmount,
+		edu_orders.orderType AS orderType,
+		edu_course.course_id AS courseId,
+		IFNULL(edu_course.LESSION_NUM,0) AS lessionNum,
+		<if test="e.closeMember=='TRUE'">
+			edu_course.logo AS courseImgUrl,
+			edu_course.COURSE_NAME AS courseName,
+
+		</if>
+		<if test="e.closeMember!='TRUE'">
+			IF(edu_course.logo!='' AND edu_course.logo IS NOT NULL ,edu_course.logo,edu_member_type.imageUrl)AS courseImgUrl,
+			IF(edu_course.COURSE_NAME!='' AND edu_course.COURSE_NAME IS NOT NULL ,edu_course.COURSE_NAME,edu_member_sale.name)AS courseName,
+		</if>
+		edu_course.TITLE AS courseTitle,
+		edu_course.SELL_TYPE AS sellType,
+		edu_trxorder_detail.current_price AS currentPrice,
+		edu_trxorder_detail.id as trxorderDetailId
+		FROM edu_orders
+		LEFT JOIN edu_user ON edu_orders.USER_ID=edu_user.USER_ID
+		LEFT JOIN edu_trxorder_detail ON edu_orders.ORDER_ID = edu_trxorder_detail.trxorder_id
+		LEFT JOIN edu_course ON edu_course.COURSE_ID = edu_trxorder_detail.course_id
+		<if test="e.closeMember!='TRUE'">
+			LEFT JOIN edu_member_sale ON edu_member_sale.id=edu_trxorder_detail.course_id
+			LEFT JOIN edu_member_type ON edu_member_type.id =edu_member_sale.type
+		</if>
+		<where>
+			<if test="e.userId!=null and e.userId!=''">
+				AND       <![CDATA[ edu_orders.user_id=#{e.userId}]]>
+			</if>
+			<if test="e.states!=null and e.states!=''">
+				AND      <![CDATA[ edu_orders.STATES=#{e.states}]]>
+			</if>
+			AND edu_trxorder_detail.del_status IS NULL
+		</where>
+		order by edu_orders.create_time desc
+		<include refid="publicMapper.pageEnd" />
+	</select>
+
+	<select id="queryOrderForUcCount" resultType="int"
+			parameterType="java.util.HashMap">
+		select count(1)
+		FROM edu_orders
+		LEFT JOIN edu_user ON edu_orders.USER_ID=edu_user.USER_ID
+		LEFT JOIN edu_trxorder_detail ON edu_orders.ORDER_ID = edu_trxorder_detail.trxorder_id
+		LEFT JOIN edu_course ON edu_course.COURSE_ID = edu_trxorder_detail.course_id
+		<if test="e.closeMember!='TRUE'">
+			LEFT JOIN edu_member_sale ON edu_member_sale.id=edu_trxorder_detail.course_id
+			LEFT JOIN edu_member_type ON edu_member_type.id =edu_member_sale.type
+		</if>
+		<where>
+			<if test="e.userId!=null and e.userId!=''">
+				AND       <![CDATA[ edu_orders.user_id=#{e.userId}]]>
+			</if>
+			<if test="e.states!=null and e.states!=''">
+				AND      <![CDATA[ edu_orders.STATES=#{e.states}]]>
+			</if>
+			AND edu_trxorder_detail.del_status IS NULL
+		</where>
+		order by edu_orders.create_time desc
+	</select>
+</mapper>

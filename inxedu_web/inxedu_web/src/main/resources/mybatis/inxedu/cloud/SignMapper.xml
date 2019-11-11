@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SignMapper">
+
+	<sql id="edu_sign_columns">
+	CLOUD_SIGN.ID,
+	CLOUD_SIGN.LIVE_ID,
+	CLOUD_SIGN.USER_ID,
+	CLOUD_SIGN.USER_NAME,
+	CLOUD_SIGN.CREATE_TIME,
+	CLOUD_SIGN.TYPE,
+	CLOUD_SIGN.SIGN_NAME
+	</sql>
+
+	<sql id="edu_sign_properties">
+	#{id},
+	#{liveId},
+	#{userId},
+	#{userName},
+	#{createTime},
+	#{type},
+	#{signName}
+	</sql>
+
+	<insert id="createSign" parameterType="Sign" useGeneratedKeys="true" keyProperty="id" keyColumn="ID">
+	INSERT INTO CLOUD_SIGN(<include refid="edu_sign_columns"/>)
+	VALUE(<include refid="edu_sign_properties"/>)
+	</insert>
+
+	<!--<select id="querySignById" parameterType="String" resultMap="CourseResult">-->
+		<!--SELECT <include refid="edu_course_columns"/> FROM EDU_COURSE WHERE EDU_COURSE.COURSE_ID=#{value}-->
+	<!--</select>-->
+
+</mapper>

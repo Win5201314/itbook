@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserProfileMapper">
+
+        <resultMap id="UserProfileResult" type="UserProfile">
+            <result property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="value" column="value"/>
+            <result property="valueTwo" column="valueTwo"/>
+            <result property="profiletype" column="profiletype"/>
+            <result property="userid" column="userid"/>
+            <result property="profiledate" column="profiledate"/>
+            <result property="avatar" column="avatar"/>
+        </resultMap>
+
+        <sql id="edu_user_profile_columns">
+            edu_user_profile.id,
+            edu_user_profile.name,
+            edu_user_profile.value,
+            edu_user_profile.valueTwo,
+            edu_user_profile.profiletype,
+            edu_user_profile.userid,
+            edu_user_profile.profiledate,
+            edu_user_profile.avatar
+        </sql>
+
+        <sql id="edu_user_profile_properties">
+            #{id},
+            #{name},
+            #{value},
+            #{valueTwo},
+            #{profiletype},
+            #{userid},
+            #{profiledate},
+            #{avatar}
+        </sql>
+
+        <insert id="createUserProfile" parameterType="UserProfile" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+            insert into edu_user_profile (<include refid="edu_user_profile_columns"/>) values (<include refid="edu_user_profile_properties"/>)
+        </insert>
+
+        <delete id="deleteUserProfileById" parameterType="int">
+            delete from edu_user_profile
+            where
+                id = #{value}
+        </delete>
+
+        <update id="updateUserProfile" parameterType="UserProfile">
+            update edu_user_profile SET
+                <if test="name!=null and name!=''">
+                `name` = #{name},
+                </if>
+                <if test="value!=null and value!=''">
+                `value` = #{value},
+                </if>
+                <if test="valueTwo!=null and valueTwo!=''">
+                `valueTwo` = #{valueTwo},
+                </if>
+                <if test="profiletype!=null and profiletype!=''">
+                profiletype = #{profiletype},
+                </if>
+                <if test="profiledate!=null and profiledate!=''">
+                profiledate = #{profiledate},
+                </if>
+                userid = #{userid}
+            where
+                id = #{id}
+
+        </update>
+        <select id="getUserProfileByUserId" resultMap="UserProfileResult" parameterType="int">
+            select
+            <include refid="edu_user_profile_columns"/>
+            from edu_user_profile
+            where
+                userid = #{value}
+        </select>
+		
+        <select id="getUserProfileList" resultMap="UserProfileResult" parameterType="UserProfile">
+            select
+            <include refid="edu_user_profile_columns"/>
+            from edu_user_profile
+            <where>
+                <if test="value!=null and value!=''">
+                    `value` = #{value}
+                </if>
+                <if test="profiletype!=null and profiletype!=''">
+                    and  profiletype = #{profiletype}
+                </if>
+                <if test="userid!=null and userid>0">
+                    and  userid = #{userid}
+                </if>
+            </where>
+        </select>
+
+        <select id="queryUserProfileById" parameterType="Long" resultMap="UserProfileResult">
+            select <include refid="edu_user_profile_columns"/>
+            from edu_user_profile
+            where
+            id = #{value}
+        </select>
+
+        <!--查询该账号是否绑定过相同类型的第三方-->
+        <select id="queryUserProfileConflict" parameterType="UserProfile" resultType="int">
+            select count(1) from edu_user_profile where profiletype=#{profiletype} and userid=#{userid}
+        </select>
+</mapper>

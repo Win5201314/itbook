@@ -1,0 +1,27 @@
+@charset "utf-8";
+@mColor: #5B83AD;
+.ex-per-nav span,.ex-per-nav a { color: @mColor;}
+.ex-per-nav ul li a:hover { background-color: @mColor;}
+.catlog-bar dl dd.current {border-left: 2px solid @mColor;}
+.ex-top .ex-top-nav ul li.current a {background-color: @mColor;}
+.e-nav-box,.e-nav-box1 {border: 1px solid @mColor;}
+.DT-arrow em {color: @mColor;}
+.e-km-box dl dt span {color: @mColor;}
+.ex-top .ex-top-nav a:hover {color: @mColor;}
+.paper-list ul li:hover .p-item-pic {border-color: @mColor;}
+.p-learn-btn {background-color: @mColor;}
+.p-learn-btn:hover {background-color: @mColor;}
+#footer{border-top:5px solid @mColor;}
+.c-master {color: @mColor;}
+.c-s-dl dl ul li a:hover, .c-s-dl-li ul li.current a { color: @mColor;}
+.c-orange {color: @mColor;}
+.my-history-title {border-bottom: 2px solid @mColor;}
+.p-test-title span { color: @mColor;}
+.p-ques-title tt { background-color: @mColor;}
+.ques-card-tab tr td.current a {color: @mColor; }
+.paper-test dd a:hover,.paper-test dd.current a {color: @mColor;}
+.ques-type li a,.submit-btn {background-color: @mColor;}
+.submit-btn {background-color: @mColor;}
+.e-km-box dl dd a:hover { color: @mColor; }
+.ques-wrong-card ul li.wrong-ans a {color: @mColor;}
+.ex-per-nav span{border-bottom: 2px solid @mColor;}

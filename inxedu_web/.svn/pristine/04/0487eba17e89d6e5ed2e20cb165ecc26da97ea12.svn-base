@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ArticleMapper">
+
+	<sql id="edu_article_column">
+	edu_article.article_id,
+	edu_article.title,
+	edu_article.summary,
+	edu_article.image_url,
+	edu_article.create_time,
+	edu_article.publish_time,
+	edu_article.click_num,
+	edu_article.praise_count,
+	edu_article.comment_num,
+	edu_article.sort
+	</sql>
+	<sql id="edu_article_property">
+	#{articleId},
+	#{title},
+	#{summary},
+	#{imageUrl},
+	#{createTime},
+	#{publishTime},
+	#{clickNum},
+	#{praiseCount},
+	#{commentNum},
+	#{sort}
+	</sql>
+	
+	<sql id="edu_article_content_column">
+	edu_article_content.article_id,
+	edu_article_content.content
+	</sql>
+	<sql id="edu_article_content_property">
+	#{articleId},#{content}
+	</sql>
+	
+	<resultMap type="Article" id="ArticleResult">
+	<result property="articleId" column="ARTICLE_ID"/>
+	<result property="title" column="TITLE"/>
+	<result property="summary" column="SUMMARY"/>
+	<result property="imageUrl" column="IMAGE_URL"/>
+	<result property="createTime" column="CREATE_TIME"/>
+	<result property="publishTime" column="PUBLISH_TIME"/>
+	<result property="clickNum" column="CLICK_NUM"/>
+	<result property="praiseCount" column="PRAISE_COUNT"/>
+	<result property="commentNum" column="COMMENT_NUM"/>
+	<result property="sort" column="SORT"/>
+
+	</resultMap>
+	
+	<!-- 创建文章 -->
+	<insert id="createArticle" parameterType="Article" useGeneratedKeys="true" keyProperty="articleId" keyColumn="ARTICLE_ID">
+	insert into edu_article(<include refid="edu_article_column"/>) value(<include refid="edu_article_property"/>)
+	</insert>
+	
+	<!-- 添加文章内容 -->
+	<insert id="addArticleContent" parameterType="ArticleContent">
+	insert into edu_article_content(<include refid="edu_article_content_column"/>)
+	value(<include refid="edu_article_content_property"/>)
+	</insert>
+	
+	<!-- 更新文章信息 -->
+	<update id="updateArticle" parameterType="Article">
+	update edu_article set
+	edu_article.title=#{title},
+	edu_article.summary=#{summary},
+	edu_article.image_url=#{imageUrl},
+	edu_article.click_num=#{clickNum},
+	edu_article.publish_time=#{publishTime},
+	edu_article.sort=#{sort}
+	where edu_article.article_id=#{articleId}
+	</update>
+	
+	<!-- 更新文章内容 -->
+	<update id="updateArticleContent" parameterType="ArticleContent">
+	update edu_article_content set
+	edu_article_content.content=#{content}
+	where edu_article_content.article_id=#{articleId}
+	</update>
+	
+	<!-- 删除文章 -->
+	<delete id="deleteArticleByIds" parameterType="java.lang.String">
+	delete from edu_article where edu_article.article_id in (${value})
+	</delete>
+	
+	<!-- 删除文章内容 -->
+	<delete id="deleteArticleContentByArticleIds" parameterType="java.lang.String">
+	delete from edu_article_content where edu_article_content.article_id in (${value})
+	</delete>
+	
+	<!-- 通过ID查询文章信息 -->
+	<select id="queryArticleById" parameterType="int" resultMap="ArticleResult">
+	select <include refid="edu_article_column"/> from edu_article where edu_article.article_id=#{value}
+	</select>
+	
+	<!-- 通过文章ID，查询文章内容 -->
+	<select id="queryArticleContentByArticleId" parameterType="int" resultType="java.lang.String">
+	SELECT EDU_ARTICLE_CONTENT.CONTENT FROM EDU_ARTICLE_CONTENT WHERE EDU_ARTICLE_CONTENT.ARTICLE_ID =#{value}
+	</select>
+	
+	<!--  分页查询文章列表，开始 -->
+	<select id="queryArticlePage" parameterType="java.util.Map" resultMap="ArticleResult">
+	select <include refid="edu_article_column"/> from edu_article
+	<where>
+		<if test="e.articleId!=null and e.articleId>0">
+			AND EDU_ARTICLE.ARTICLE_ID=#{e.articleId}
+		</if>
+		<if test="e.beginCreateTime!=null and e.beginCreateTime!=''">
+			AND EDU_ARTICLE.CREATE_TIME >= #{e.beginCreateTime}
+		</if>
+		<if test="e.endCreateTime!=null and e.endCreateTime!=''">
+			AND <![CDATA[EDU_ARTICLE.CREATE_TIME <= #{e.endCreateTime}]]>
+		</if>
+		<if test="e.queryKey!=null and e.queryKey!=''">
+			AND (EDU_ARTICLE.TITLE LIKE CONCAT('%',#{e.queryKey},'%'))
+		</if>
+	</where>
+	order by sort desc,publish_time desc
+	</select>
+	
+	<!-- 更新文章浏览量 -->
+	<update id="updateArticleNum" parameterType="Map">
+	UPDATE edu_article SET
+	<if test="type=='clickNum'">
+	click_num=click_num${num}
+	</if>
+	<if test="type=='praiseCount'">
+	praise_count=praise_count${num}
+	</if>
+	<if test="type=='commentCount'">
+	comment_num=comment_num${num}
+	</if>
+	WHERE 
+	edu_article.article_id=#{articleId}
+	</update>
+
+	<!-- 公共多条件查询文章资讯列表,用于前台 -->
+	<select id="queryArticleList" parameterType="QueryArticle" resultMap="ArticleResult">
+	SELECT <include refid="edu_article_column"/> from edu_article
+	<if test="orderby==0">
+	order by edu_article.create_time desc
+	</if>
+	<if test="orderby==1">
+	order by edu_article.click_num desc
+	</if>
+	<if test="orderby==2">
+	order by edu_article.comment_num desc
+	</if>
+	<if test="count>0">
+	limit #{count}
+	</if>
+	</select>
+	<!-- 查询上一篇或下一篇文章 -->
+	<select id="queryUpOrDownArticle" parameterType="java.util.Map" resultMap="ArticleResult">
+	SELECT <include refid="edu_article_column"/> FROM edu_article
+	where
+	<if test="keyWord=='UP'">
+	AND <![CDATA[edu_article.article_id <#{articleId}]]> ORDER BY article_id DESC
+	</if>
+	<if test="keyWord=='DOWN'">
+	AND <![CDATA[edu_article.article_id >#{articleId}]]> ORDER BY article_id ASC
+	</if>
+	LIMIT 1
+	</select>
+	
+	<!-- 获取所有文章总记录数 -->
+	<select id="queryAllArticleCount" resultType="int">
+	select count(1) from edu_article
+	</select>
+</mapper>

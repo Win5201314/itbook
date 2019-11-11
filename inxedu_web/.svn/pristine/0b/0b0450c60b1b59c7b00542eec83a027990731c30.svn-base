@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd" default-autowire="byName">
+
+    <!-- 课程卡编码过期定时器 -->
+    <bean id="cardOverDate" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean" lazy-init="false">
+        <property name="jobDetail">
+            <bean class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+                <property name="targetObject">
+                    <ref bean="cardCodeService"/>
+                </property>
+                <property name="targetMethod">
+                    <value>updateCardStatus</value>
+                </property>
+                <property name="concurrent">
+                    <value>true</value>
+                </property>
+            </bean>
+        </property>
+        <property name="cronExpression">
+            <value>0 20 0 * * ?</value><!--  每天凌晨0点20触发  -->
+        </property>
+    </bean>
+    <!-- 课程卡过期定时器 -->
+    <bean id="updCardStatus" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean" lazy-init="false">
+        <property name="jobDetail">
+            <bean class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+                <property name="targetObject">
+                    <ref bean="cardCodeService"/>
+                </property>
+                <property name="targetMethod">
+                    <value>updCardStatus</value>
+                </property>
+                <property name="concurrent">
+                    <value>true</value>
+                </property>
+            </bean>
+        </property>
+        <property name="cronExpression">
+            <value>0 20 0 * * ?</value><!--  每天凌晨0点20触发  -->
+        </property>
+    </bean>
+	<!-- 定时器配置 lazy-init='false'-->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean"  lazy-init="false" autowire="no"> 
+		<property name="triggers"> 
+			<list> 
+                <!-- 课程卡编码过期操作 -->
+                <ref bean="cardOverDate"/>
+                <!-- 课程卡过期操作 -->
+                <ref bean="updCardStatus"/>
+            </list>
+		</property> 
+	</bean>
+	
+	
+</beans>

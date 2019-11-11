@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/inxedu.iml" filepath="$PROJECT_DIR$/inxedu.iml" />
+      <module fileurl="file://$PROJECT_DIR$/inxedu-account/inxedu-account.iml" filepath="$PROJECT_DIR$/inxedu-account/inxedu-account.iml" />
+      <module fileurl="file://$PROJECT_DIR$/inxedu-common/inxedu-common.iml" filepath="$PROJECT_DIR$/inxedu-common/inxedu-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/inxedu-coupon/inxedu-coupon.iml" filepath="$PROJECT_DIR$/inxedu-coupon/inxedu-coupon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/inxedu-course-card/inxedu-course-card.iml" filepath="$PROJECT_DIR$/inxedu-course-card/inxedu-course-card.iml" />
+      <module fileurl="file://$PROJECT_DIR$/inxedu-invite/inxedu-invite.iml" filepath="$PROJECT_DIR$/inxedu-invite/inxedu-invite.iml" />
+      <module fileurl="file://$PROJECT_DIR$/inxedu-live/inxedu-live.iml" filepath="$PROJECT_DIR$/inxedu-live/inxedu-live.iml" />
+      <module fileurl="file://$PROJECT_DIR$/inxedu-member/inxedu-member.iml" filepath="$PROJECT_DIR$/inxedu-member/inxedu-member.iml" />
+      <module fileurl="file://$PROJECT_DIR$/inxedu-third-party-login/inxedu-third-party-login.iml" filepath="$PROJECT_DIR$/inxedu-third-party-login/inxedu-third-party-login.iml" />
+      <module fileurl="file://$PROJECT_DIR$/inxedu_upload/inxedu_upload.iml" filepath="$PROJECT_DIR$/inxedu_upload/inxedu_upload.iml" />
+      <module fileurl="file://$PROJECT_DIR$/inxedu_web/inxedu_web.iml" filepath="$PROJECT_DIR$/inxedu_web/inxedu_web.iml" />
+    </modules>
+  </component>
+</project>

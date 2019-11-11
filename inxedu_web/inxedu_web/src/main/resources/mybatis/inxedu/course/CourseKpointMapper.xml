@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CourseKpointMapper">
+
+	<resultMap id="CourseKpointResult" type="CourseKpoint">
+	<result property="kpointId" column="KPOINT_ID"/>
+	<result property="courseId" column="COURSE_ID"/>
+	<result property="name" column="NAME"/>
+	<result property="parentId" column="PARENT_ID"/>
+	<result property="addTime" column="ADD_TIME"/>
+	<result property="sort" column="SORT"/>
+	<result property="playCount" column="PLAY_COUNT"/>
+	<result property="free" column="IS_FREE"/>
+	<result property="videoUrl" column="VIDEO_URL"/>
+	<result property="teacherId" column="TEACHER_ID"/>
+	<result property="playTime" column="play_time"/>
+	<result property="kpointType" column="KPOINT_TYPE"/>
+	<result property="videoType" column="VIDEO_TYPE"/>
+	<result property="fileType" column="FILE_TYPE"/>
+	<result property="content" column="CONTENT"/>
+	<result property="pageCount" column="PAGE_COUNT"/>
+		<result property="liveBeginTime" column="LIVE_BEGIN_TIME"/>
+		<result property="liveEndTime" column="LIVE_END_TIME"/>
+		<result property="supplier" column="SUPPLIER"/>
+		<result property="openType" column="openType"/>
+	</resultMap>
+	
+	<sql id="edu_course_kpoint_columns">
+	EDU_COURSE_KPOINT.KPOINT_ID,
+	EDU_COURSE_KPOINT.COURSE_ID,
+	EDU_COURSE_KPOINT.NAME,
+	EDU_COURSE_KPOINT.PARENT_ID,
+	EDU_COURSE_KPOINT.ADD_TIME,
+	EDU_COURSE_KPOINT.SORT,
+	EDU_COURSE_KPOINT.PLAY_COUNT,
+	EDU_COURSE_KPOINT.IS_FREE,
+	EDU_COURSE_KPOINT.VIDEO_URL,
+	EDU_COURSE_KPOINT.TEACHER_ID,
+	EDU_COURSE_KPOINT.play_time,
+	EDU_COURSE_KPOINT.KPOINT_TYPE,
+	EDU_COURSE_KPOINT.VIDEO_TYPE,
+	EDU_COURSE_KPOINT.FILE_TYPE,
+	EDU_COURSE_KPOINT.CONTENT,
+	EDU_COURSE_KPOINT.PAGE_COUNT,
+	EDU_COURSE_KPOINT.LIVE_BEGIN_TIME,
+	EDU_COURSE_KPOINT.LIVE_END_TIME,
+	EDU_COURSE_KPOINT.SUPPLIER,
+		EDU_COURSE_KPOINT.openType
+	</sql>
+	<sql id="edu_course_kpoint_properties">
+	#{kpointId},
+	#{courseId},
+	#{name},
+	#{parentId},
+	#{addTime},
+	#{sort},
+	#{playCount},
+	#{free},
+	#{videoUrl},
+	#{teacherId},
+	#{playTime},
+	#{kpointType},
+	#{videoType},
+	#{fileType},
+	#{content},
+	#{pageCount},
+	#{liveBeginTime},
+	#{liveEndTime},
+	#{supplier},
+	#{openType}
+	</sql>
+
+	<!-- 创建视频节点 -->
+	<insert id="createCourseKpoint" parameterType="CourseKpoint" keyColumn="KPOINT_ID" keyProperty="kpointId" useGeneratedKeys="true">
+		INSERT INTO EDU_COURSE_KPOINT(<include refid="edu_course_kpoint_columns"/>) 
+		VALUES(<include refid="edu_course_kpoint_properties"/>)
+	</insert>
+	<!-- 查询课程所属视频 -->
+	<select id="queryCourseKpointByCourseId" parameterType="int" resultMap="CourseKpointResult">
+	SELECT <include refid="edu_course_kpoint_columns"/> 
+	FROM EDU_COURSE_KPOINT WHERE EDU_COURSE_KPOINT.COURSE_ID=#{value}
+	ORDER BY EDU_COURSE_KPOINT.SORT ,EDU_COURSE_KPOINT.KPOINT_ID ASC
+	</select>
+	
+	<!-- 查询通过视频节点ID，查询节点详情 -->
+	<select id="queryCourseKpointById" parameterType="int" resultType="CourseKpointDto">
+	SELECT EDU_COURSE_KPOINT.KPOINT_ID as kpointId,
+	EDU_COURSE_KPOINT.COURSE_ID as courseId,
+	EDU_COURSE_KPOINT.NAME as name,
+	EDU_COURSE_KPOINT.SORT as sort,
+	EDU_COURSE_KPOINT.PLAY_COUNT as playCount,
+	EDU_COURSE_KPOINT.IS_FREE as free,
+	EDU_COURSE_KPOINT.VIDEO_URL as videoUrl,
+	EDU_COURSE_KPOINT.TEACHER_ID as teacherId,
+	EDU_COURSE_KPOINT.play_time as playTime,
+	EDU_COURSE_KPOINT.KPOINT_TYPE as kpointType,
+	EDU_COURSE_KPOINT.VIDEO_TYPE as videoType,
+	EDU_COURSE_KPOINT.FILE_TYPE as fileType,
+	EDU_COURSE_KPOINT.CONTENT as content,
+	EDU_COURSE_KPOINT.PAGE_COUNT as pageCount,
+	EDU_COURSE_KPOINT.LIVE_BEGIN_TIME as liveBeginTime,
+	EDU_COURSE_KPOINT.LIVE_END_TIME as liveEndTime,
+	EDU_COURSE_KPOINT.SUPPLIER as supplier,
+	EDU_TEACHER.NAME as teacherName,
+	EDU_COURSE_KPOINT.openType
+	FROM EDU_COURSE_KPOINT
+	LEFT JOIN EDU_TEACHER ON EDU_TEACHER.ID = EDU_COURSE_KPOINT.TEACHER_ID
+	WHERE EDU_COURSE_KPOINT.KPOINT_ID=#{value}
+	</select>
+	
+	<!-- 修改视频节点 -->
+	<update id="updateKpoint" parameterType="CourseKpoint">
+	UPDATE EDU_COURSE_KPOINT SET
+	EDU_COURSE_KPOINT.NAME=#{name},
+	EDU_COURSE_KPOINT.SORT=#{sort},
+	EDU_COURSE_KPOINT.PLAY_COUNT=#{playCount},
+	EDU_COURSE_KPOINT.IS_FREE=#{free},
+	EDU_COURSE_KPOINT.VIDEO_URL=#{videoUrl},
+	EDU_COURSE_KPOINT.TEACHER_ID=#{teacherId},
+	EDU_COURSE_KPOINT.play_time = #{playTime},
+	EDU_COURSE_KPOINT.KPOINT_TYPE=#{kpointType},
+	EDU_COURSE_KPOINT.VIDEO_TYPE=#{videoType},
+	EDU_COURSE_KPOINT.FILE_TYPE=#{fileType},
+	EDU_COURSE_KPOINT.CONTENT=#{content},
+	EDU_COURSE_KPOINT.PAGE_COUNT=#{pageCount},
+	EDU_COURSE_KPOINT.LIVE_BEGIN_TIME=#{liveBeginTime},
+	EDU_COURSE_KPOINT.LIVE_END_TIME=#{liveEndTime},
+	EDU_COURSE_KPOINT.SUPPLIER=#{supplier},
+	EDU_COURSE_KPOINT.openType=#{openType}
+	WHERE EDU_COURSE_KPOINT.KPOINT_ID=#{kpointId}
+	</update>
+	
+	<!-- 删除视频节点 -->
+	<delete id="deleteKpointByIds" parameterType="java.lang.String">
+	DELETE FROM EDU_COURSE_KPOINT where EDU_COURSE_KPOINT.KPOINT_ID IN(${value})
+	</delete>
+	
+	<!-- 修改视频节点所属父节点 -->
+	<update id="updateKpointParentId" parameterType="java.util.Map">
+	UPDATE EDU_COURSE_KPOINT SET EDU_COURSE_KPOINT.PARENT_ID=#{parentId} WHERE EDU_COURSE_KPOINT.KPOINT_ID=#{kpointId}
+	</update>
+	
+	<!--  获取课程的 视频节点总数 -->
+	<select id="getSecondLevelKpointCount" parameterType="long" resultType="int">
+	SELECT IFNULL(count(1),0) 
+		FROM edu_course_kpoint 
+	where 
+		edu_course_kpoint.COURSE_ID=#{value} and edu_course_kpoint.KPOINT_TYPE=1
+	</select>
+
+	<!-- 更新课程章节的播放数量 -->
+	<update id="updCourseKpointCount" parameterType="int" >
+		update edu_course_kpoint
+		 	set PLAY_COUNT = PLAY_COUNT + 1
+		where KPOINT_ID=#{value}
+	</update>
+
+	<!--根据条件查询章节-->
+	<select id="queryKpointList" parameterType="CourseKpoint" resultType="CourseKpointDto">
+		SELECT
+			EDU_COURSE_KPOINT.KPOINT_ID as kpointId,
+			EDU_COURSE_KPOINT.COURSE_ID as courseId,
+			EDU_COURSE_KPOINT.NAME as name,
+			EDU_COURSE_KPOINT.SORT as sort,
+			EDU_COURSE_KPOINT.PLAY_COUNT as playCount,
+			EDU_COURSE_KPOINT.IS_FREE as free,
+			EDU_COURSE_KPOINT.VIDEO_URL as videoUrl,
+			EDU_COURSE_KPOINT.TEACHER_ID as teacherId,
+			EDU_COURSE_KPOINT.play_time as playTime,
+			EDU_COURSE_KPOINT.KPOINT_TYPE as kpointType,
+			EDU_COURSE_KPOINT.VIDEO_TYPE as videoType,
+			EDU_COURSE_KPOINT.FILE_TYPE as fileType,
+			EDU_COURSE_KPOINT.PAGE_COUNT as pageCount,
+			EDU_COURSE_KPOINT.LIVE_BEGIN_TIME as liveBeginTime,
+			EDU_COURSE_KPOINT.LIVE_END_TIME as liveEndTime,
+			EDU_TEACHER.NAME as teacherName,
+		    edu_course.COURSE_NAME as courseName
+		FROM EDU_COURSE_KPOINT
+		LEFT JOIN EDU_TEACHER ON EDU_TEACHER.ID = EDU_COURSE_KPOINT.TEACHER_ID
+		LEFT JOIN edu_course on edu_course.COURSE_ID = EDU_COURSE_KPOINT.COURSE_ID
+		<where>
+			<if test="isavaliable>0">
+				EDU_COURSE.IS_AVALIABLE=#{isavaliable}
+			</if>
+			<if test="courseId>0"><!-- 课程id -->
+				AND EDU_COURSE_KPOINT.COURSE_ID=#{courseId}
+			</if>
+			<if test="fileType!=null and fileType!=''"><!-- 节点文件格式 -->
+				AND EDU_COURSE_KPOINT.FILE_TYPE=#{fileType}
+			</if>
+			<if test="kpointType!=null and kpointType!=''"><!-- 节点类型 0文件目录 1视频 -->
+				AND EDU_COURSE_KPOINT.KPOINT_TYPE=#{kpointType}
+			</if>
+			<if test="liveBeginTime!=null and liveBeginTime!=''"><!-- 查询开始时间大于 -->
+				AND <![CDATA[EDU_COURSE_KPOINT.LIVE_BEGIN_TIME > #{liveBeginTime}]]>
+			</if>
+			<if test="queryLiveIngTime!=null and queryLiveIngTime!='' "><!--查询正在直播的章节 已经开始（前十五分钟可以观看）  ，并且未结束-->
+				AND <![CDATA[EDU_COURSE_KPOINT.LIVE_BEGIN_TIME-INTERVAL 15 MINUTE < #{queryLiveIngTime}]]> AND <![CDATA[EDU_COURSE_KPOINT.LIVE_END_TIME > #{queryLiveIngTime} ]]>
+			</if>
+			<if test="videoUrl!=null and videoUrl!=''">
+				AND edu_course_kpoint.video_url=#{videoUrl}
+			</if>
+		</where>
+		<if test="queryOrder=='near'"><!-- 近期 升序 -->
+            ORDER BY EDU_COURSE_KPOINT.LIVE_BEGIN_TIME ASC
+		</if>
+		<if test="queryOrder=='overNear'"><!-- 时间降序 用于所有章节都结束时查询最近直播课程-->
+            ORDER BY EDU_COURSE_KPOINT.LIVE_BEGIN_TIME DESC
+		</if>
+		<if test="queryLimitNum>0">
+			limit #{queryLimitNum}
+		</if>
+	</select>
+
+	<!-- 推荐课程返回专用Map映射 -->
+	<resultMap type="CourseKpointDto" id="CourseKpointDtoResult">
+		<result property="courseId" column="courseId" />
+		<result property="courseName" column="courseName" />
+		<result property="courseLogo" column="courseLogo"/>
+		<result property="courseBuycount" column="courseBuycount"/>
+		<result property="currentPrice" column="currentPrice"/>
+		<result property="courseLiveBeginTime" column="courseLiveBeginTime"/>
+		<result property="courseLiveEndTime" column="courseLiveEndTime"/>
+		<result property="liveBeginTime" column="liveBeginTime"/>
+		<result property="liveEndTime" column="liveEndTime"/>
+		<result property="name" column="kpointName"/>
+		<collection property="teacherList" resultMap="TeacherMapper.TeacherResult" />
+	</resultMap>
+
+	<!--首页查询直播课程-->
+	<select id="queryCourseNearestKpointList" parameterType="CourseKpoint" resultMap="CourseKpointDtoResult">
+		SELECT
+		courseId,
+		courseName,
+		courseLogo ,
+		courseBuycount,
+		currentPrice,
+		courseLiveBeginTime,
+		courseLiveEndTime,
+		liveBeginTime,
+		liveEndTime,
+		kpointName,
+		kpointId,
+		edu_teacher.`id` ,
+		edu_teacher.`name`
+		FROM
+		(
+			SELECT
+			courseId,
+			courseName,
+			courseLogo ,
+			courseBuycount,
+			currentPrice,
+			courseLiveBeginTime,
+			courseLiveEndTime,
+			liveBeginTime,
+			liveEndTime,
+			kpointName,
+			kpointId
+			FROM (
+				SELECT
+				edu_course.course_id AS courseId,
+				edu_course.`course_name` AS courseName,
+				edu_course.`logo` AS courseLogo,
+				edu_course.page_buycount AS courseBuycount,
+				edu_course.`current_price` AS currentPrice,
+				edu_course.`live_begin_time` AS courseLiveBeginTime,
+				edu_course.`live_end_time` AS courseLiveEndTime,
+				edu_course_kpoint.`live_begin_time` AS liveBeginTime,
+				edu_course_kpoint.`live_end_time` AS liveEndTime,
+				edu_course_kpoint.name as kpointName,
+				edu_course_kpoint.kpoint_id as kpointId
+				FROM EDU_COURSE_KPOINT
+				LEFT JOIN edu_course on edu_course.COURSE_ID = EDU_COURSE_KPOINT.COURSE_ID
+				<where>
+					<if test="isavaliable>0">
+						EDU_COURSE.IS_AVALIABLE=#{isavaliable}
+					</if>
+					<if test="courseId>0"><!-- 课程id -->
+						AND EDU_COURSE_KPOINT.COURSE_ID=#{courseId}
+					</if>
+					<if test="fileType!=null and fileType!=''"><!-- 节点文件格式 -->
+						AND EDU_COURSE_KPOINT.FILE_TYPE=#{fileType}
+					</if>
+					<if test="kpointType!=null and kpointType!=''"><!-- 节点类型 0文件目录 1视频 -->
+						AND EDU_COURSE_KPOINT.KPOINT_TYPE=#{kpointType}
+					</if>
+					<if test="liveBeginTime!=null and liveBeginTime!=''"><!-- 查询开始时间大于 -->
+						AND <![CDATA[EDU_COURSE_KPOINT.LIVE_BEGIN_TIME > #{liveBeginTime}]]>
+					</if>
+					<if test="liveEndTime!=null and liveEndTime!=''"><!-- 查询开始时间大于 -->
+						AND <![CDATA[EDU_COURSE_KPOINT.LIVE_END_TIME > #{liveEndTime}]]>
+					</if>
+					<if test="queryLiveIngTime!=null and queryLiveIngTime!='' "><!--查询正在直播的章节 已经开始（前十五分钟可以观看）  ，并且未结束-->
+						AND <![CDATA[EDU_COURSE_KPOINT.LIVE_BEGIN_TIME-INTERVAL 15 MINUTE < #{queryLiveIngTime}]]> AND <![CDATA[EDU_COURSE_KPOINT.LIVE_END_TIME > #{queryLiveIngTime} ]]>
+					</if>
+				</where>
+				<if test="queryOrder=='near'"><!-- 近期 升序 -->
+					ORDER BY EDU_COURSE_KPOINT.LIVE_BEGIN_TIME ASC
+				</if>
+				<if test="queryOrder=='overNear'"><!-- 时间降序 用于所有章节都结束时查询最近直播课程-->
+					ORDER BY EDU_COURSE_KPOINT.LIVE_BEGIN_TIME DESC
+				</if>
+			) t <!-- 先查询出符合条件的 所有的章节 -->
+			group by courseId
+			<if test="queryLimitNum>0">
+				limit #{queryLimitNum}
+			</if>
+		) coursetemp <!--  同课程下的章节 去重 -->
+		LEFT JOIN edu_course_teacher  ON edu_course_teacher.course_id = coursetemp.courseId
+		LEFT JOIN edu_teacher ON  edu_teacher.`id` = edu_course_teacher.`teacher_id`;<!--  查询课程下的讲师 -->
+	</select>
+</mapper>

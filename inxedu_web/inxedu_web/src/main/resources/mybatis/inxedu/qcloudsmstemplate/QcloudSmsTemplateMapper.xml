@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="QcloudSmsTemplateMapper">
+	<resultMap id="QcloudSmsTemplateResult" type="QcloudSmsTemplate">
+			<result property="id" column="id" />
+			<result property="type" column="type" />
+			<result property="text" column="text" />
+			<result property="otherId" column="other_id" />
+			<result property="createTime" column="CREATE_TIME" />
+			<result property="name" column="name" />
+			<result property="explain" column="explain" />
+	</resultMap>
+	
+	<sql id="edu_qcloud_sms_template_columns">
+			edu_qcloud_sms_template.id,
+			edu_qcloud_sms_template.type,
+			edu_qcloud_sms_template.text,
+			edu_qcloud_sms_template.other_id,
+			edu_qcloud_sms_template.CREATE_TIME,
+			edu_qcloud_sms_template.name,
+			edu_qcloud_sms_template.explain
+	</sql>
+
+	<sql id="edu_qcloud_sms_template_properties">
+			#{id},
+			#{type},
+			#{text},
+			#{otherId},
+			#{createTime},
+			#{name},
+			#{explain}
+	</sql>
+
+	<!-- 添加QcloudSmsTemplate --> 
+	<insert id="addQcloudSmsTemplate" parameterType="QcloudSmsTemplate" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO edu_qcloud_sms_template (
+		<include refid="edu_qcloud_sms_template_columns" />
+		)
+		VALUES(
+		<include refid="edu_qcloud_sms_template_properties" />
+		)
+	</insert>
+
+	<!-- 删除QcloudSmsTemplate -->
+	<delete id="delQcloudSmsTemplateById" parameterType="Map">
+		DELETE FROM edu_qcloud_sms_template WHERE edu_qcloud_sms_template.id = #{value}
+	</delete>
+
+	<!-- 修改QcloudSmsTemplate -->
+	<update id="updateQcloudSmsTemplate" parameterType="QcloudSmsTemplate">
+		UPDATE edu_qcloud_sms_template SET
+			edu_qcloud_sms_template.id = #{id},
+			edu_qcloud_sms_template.type = #{type},
+			edu_qcloud_sms_template.text = #{text},
+			edu_qcloud_sms_template.other_id = #{otherId},
+			edu_qcloud_sms_template.CREATE_TIME = #{createTime},
+			edu_qcloud_sms_template.name = #{name},
+			edu_qcloud_sms_template.explain = #{explain}
+		WHERE edu_qcloud_sms_template.id = #{id}
+	</update>
+
+	<!-- 根据id获取单个QcloudSmsTemplate对象 -->
+	<select id="getQcloudSmsTemplateById" resultMap="QcloudSmsTemplateResult" parameterType="Map">
+		SELECT
+		<include refid="edu_qcloud_sms_template_columns" />
+		FROM edu_qcloud_sms_template WHERE edu_qcloud_sms_template.id = #{value}
+	</select>
+
+	<!-- 根据条件获取QcloudSmsTemplate分页列表 -->
+	<select id="queryQcloudSmsTemplateListPage" resultMap="QcloudSmsTemplateResult" parameterType="java.util.Map">
+		SELECT
+		<include refid="edu_qcloud_sms_template_columns" />
+		FROM edu_qcloud_sms_template
+		<where>
+					<if test="e.id !=null and e.id>0">
+						AND edu_qcloud_sms_template.id = #{e.id}
+					</if>
+					<if test="e.type!=null and e.type!='' ">
+						AND edu_qcloud_sms_template.type = #{e.type}
+					</if>
+					<if test="e.text!=null and e.text!='' ">
+						AND edu_qcloud_sms_template.text LIKE CONCAT('%',#{e.text},'%')
+					</if>
+					<if test="e.otherId!=null and e.otherId!='' ">
+						AND edu_qcloud_sms_template.other_id = #{e.otherId}
+					</if>
+					<if test="e.name!=null and e.name!='' ">
+						AND edu_qcloud_sms_template.name = #{e.name}
+					</if>
+					<if test="e.createTime!=null and e.createTime!='' ">
+						AND <![CDATA[ edu_qcloud_sms_template.CREATE_TIME >= #{e.createTime} ]]>
+					</if>
+		</where>
+		<include refid="publicMapper.pageEnd"/>
+	</select>
+	<select id="queryQcloudSmsTemplateListPageCount" resultType="int" parameterType="java.util.Map">
+		SELECT
+		COUNT(1)
+		FROM edu_qcloud_sms_template
+		<where>
+					<if test="e.id !=null and e.id>0">
+						AND edu_qcloud_sms_template.id = #{e.id}
+					</if>
+					<if test="e.type!=null and e.type!='' ">
+						AND edu_qcloud_sms_template.type = #{e.type}
+					</if>
+					<if test="e.text!=null and e.text!='' ">
+						AND edu_qcloud_sms_template.text LIKE CONCAT('%',#{e.text},'%')
+					</if>
+					<if test="e.otherId!=null and e.otherId!='' ">
+						AND edu_qcloud_sms_template.other_id = #{e.otherId}
+					</if>
+					<if test="e.name!=null and e.name!='' ">
+						AND edu_qcloud_sms_template.name = #{e.name}
+					</if>
+					<if test="e.createTime!=null and e.createTime!='' ">
+						AND <![CDATA[ edu_qcloud_sms_template.CREATE_TIME >= #{e.createTime} ]]>
+					</if>
+		</where>
+	</select>
+
+	<!-- 根据条件获取QcloudSmsTemplate列表 -->
+	<select id="queryQcloudSmsTemplateList" parameterType="QcloudSmsTemplate" resultMap="QcloudSmsTemplateResult">
+		SELECT 
+			<include refid="edu_qcloud_sms_template_columns" />
+		FROM edu_qcloud_sms_template
+		<where>
+					<if test="id !=null and id>0">
+						AND edu_qcloud_sms_template.id = #{e.id}
+					</if>
+					<if test="type!=null and type!='' ">
+						AND edu_qcloud_sms_template.type = #{e.type}
+					</if>
+					<if test="text!=null and text!='' ">
+						AND edu_qcloud_sms_template.text LIKE CONCAT('%',#{e.text},'%')
+					</if>
+					<if test="otherId!=null and otherId!='' ">
+						AND edu_qcloud_sms_template.other_id = #{e.otherId}
+					</if>
+					<if test="createTime!=null and createTime!='' ">
+						AND <![CDATA[ edu_qcloud_sms_template.CREATE_TIME >= #{e.createTime} ]]>
+					</if>
+		</where>
+	</select>
+</mapper>

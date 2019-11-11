@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ChanMapper">
+
+	<sql id="stream_channel_columns">
+		STREAM_CHANNEL_DETAIL.ID,
+		STREAM_CHANNEL_DETAIL.ASF,
+		STREAM_CHANNEL_DETAIL.RTMP,
+		STREAM_CHANNEL_DETAIL.RTMP_BANDWIDTH,
+		STREAM_CHANNEL_DETAIL.RTMP_CLIENTS,
+		STREAM_CHANNEL_DETAIL.RTMP_HAVE,
+		STREAM_CHANNEL_DETAIL.IP
+	</sql>
+
+	<sql id="stream_server_columns">
+		STREAM_SERVER_LIST.ID,
+		STREAM_SERVER_LIST.NAME,
+		STREAM_SERVER_LIST.IP,
+		STREAM_SERVER_LIST.PORT,
+		STREAM_SERVER_LIST.CHANNUM,
+		STREAM_SERVER_LIST.BANDWIDTH,
+		STREAM_SERVER_LIST.TATALRTMPBANDWIDTH,
+		STREAM_SERVER_LIST.OPERATOR
+	</sql>
+
+	<sql id="stream_server_properties">
+	#{id},
+	#{name},
+	#{ip},
+	#{port},
+	#{channum},
+	#{bandwidth},
+	#{tatalrtmpbandwidth},
+	#{operator}
+	</sql>
+
+	<select id="getServerList" resultType="Server">
+		select * from stream_server_list
+	</select>
+
+	<insert id="createServer" parameterType="Server" useGeneratedKeys="true" keyProperty="id" keyColumn="ID">
+		INSERT INTO STREAM_SERVER_LIST(<include refid="stream_server_columns"/>)
+		VALUE(<include refid="stream_server_properties"/>)
+	</insert>
+
+	<delete id="deleteServer" parameterType="String">
+            delete from STREAM_SERVER_LIST
+            where
+                id = #{value}
+    </delete>
+
+	<insert id="getChanDetail" parameterType="list" >
+		replace into stream_channel_detail
+		(<include refid="stream_channel_columns"/>)
+		VALUES
+		<foreach collection="list" item="it" separator=",">
+			( #{it.channid},#{it.asf},#{it.rtmp},
+			#{it.rtmp_bandwidth},#{it.rtmp_clients},#{it.rtmp_have},
+			#{it.ip})
+		</foreach>
+	</insert>
+
+</mapper>

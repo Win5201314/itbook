@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CoursePackageMapper">
+
+	<resultMap id="CoursePackageResult" type="CoursePackage">
+		<result property="id" column="ID" />
+		<result property="mainCourseId" column="MAIN_COURSE_ID" />
+		<result property="courseId" column="COURSE_ID" />
+		<result property="orderNum" column="ORDER_NUM" />
+	</resultMap>
+
+	<sql id="edu_course_package_columns">
+		edu_course_package.ID,
+		edu_course_package.MAIN_COURSE_ID,
+		edu_course_package.COURSE_ID,
+		edu_course_package.ORDER_NUM
+	</sql>
+
+	<sql id="edu_course_package_properties">
+		#{id},
+		#{mainCourseId},
+		#{courseId},
+		#{orderNum}
+	</sql>
+
+	<insert id="addCoursePackageBatch" parameterType="list">
+		insert INTO edu_course_package (
+		<include refid="edu_course_package_columns" />
+		) VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.id},
+			#{item.mainCourseId},
+			#{item.courseId},
+			#{item.orderNum}
+			)
+		</foreach>
+	</insert>
+	<select id="queryCoursePackage" resultMap="CoursePackageResult" parameterType="Map">
+		select
+		<include refid="edu_course_package_columns" />
+		from edu_course_package
+		where
+        edu_course_package.course_id = #{courseId}
+		<if test=" mainCourseId !=null and mainCourseId !=''">
+			and edu_course_package.MAIN_COURSE_ID = #{mainCourseId}
+		</if>
+	</select>
+
+	<delete id="delCoursePackage" parameterType="CoursePackage">
+		delete from
+		edu_course_package
+		<where>
+			MAIN_COURSE_ID = #{mainCourseId}
+		<if test="courseId!=null and courseId!=0">
+		and course_id = #{courseId}
+		</if>
+		</where>
+	</delete>
+	
+	<!-- 修改排序 -->
+	<update id="updateCoursePackageOrderNum" parameterType="CoursePackage">
+		 update edu_course_package SET
+		 edu_course_package.order_num = #{orderNum}
+		 where edu_course_package.course_id = #{courseId}
+	</update>
+
+	<!-- 查看课程所在的所有班级 -->
+	<select id="quePackageByCouId" parameterType="long" resultMap="CoursePackageResult">
+		select distinct(edu_course_package.MAIN_COURSE_ID),
+			edu_course_package.ID,
+			edu_course_package.COURSE_ID,
+			edu_course_package.ORDER_NUM
+		from edu_course_package
+		where
+        	edu_course_package.course_id = #{value}
+	</select>
+
+	<delete id="delCoursePackageByCourseId" parameterType="CoursePackage">
+		delete from
+		edu_course_package
+		<where>
+			course_id = #{courseId}
+		</where>
+	</delete>
+
+</mapper>

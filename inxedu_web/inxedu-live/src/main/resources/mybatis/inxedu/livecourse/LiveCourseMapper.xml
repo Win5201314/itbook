@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="LiveCourseMapper">
+
+	<resultMap id="LiveCourseResult" type="Course">
+		<result property="courseId" column="COURSE_ID" />
+		<result property="courseName" column="COURSE_NAME" />
+		<result property="isavaliable" column="IS_AVALIABLE"/>
+		<result property="subjectId" column="SUBJECT_ID"/>
+		<result property="addTime" column="ADD_TIME"/>
+		<result property="sourcePrice" column="SOURCE_PRICE"/>
+		<result property="currentPrice" column="CURRENT_PRICE"/>
+		<result property="title" column="TITLE"/>
+		<result property="context" column="CONTEXT"/>
+		<result property="lessionNum" column="LESSION_NUM"/>
+		<result property="logo" column="LOGO"/>
+		<result property="updateTime" column="UPDATE_TIME"/>
+		<result property="pageBuycount" column="PAGE_BUYCOUNT"/>
+		<result property="pageViewcount" column="PAGE_VIEWCOUNT"/>
+		<result property="endTime" column="END_TIME"/>
+		<result property="loseType" column="LOSETYPE"/>
+		<result property="loseTime" column="LOSE_TIME"/>
+		<result property="sellType" column="SELL_TYPE"/>
+		<result property="liveBeginTime" column="LIVE_BEGIN_TIME"/>
+		<result property="liveEndTime" column="LIVE_END_TIME"/>
+		<association property="courseKpointList" column="{coruseId=COURSE_ID,queryTime=queryTime}" javaType="java.util.List" select="LiveCourseMapper.queryKpointByCourse"/>
+    </resultMap>
+
+	<sql id="edu_live_course_columns">
+		EDU_COURSE.COURSE_ID,
+		EDU_COURSE.COURSE_NAME,
+		EDU_COURSE.IS_AVALIABLE,
+		EDU_COURSE.SUBJECT_ID,
+		EDU_COURSE.ADD_TIME,
+		EDU_COURSE.SOURCE_PRICE,
+		EDU_COURSE.CURRENT_PRICE,
+		EDU_COURSE.TITLE,
+		EDU_COURSE.CONTEXT,
+		EDU_COURSE.LESSION_NUM,
+		EDU_COURSE.LOGO,
+		EDU_COURSE.UPDATE_TIME,
+		EDU_COURSE.PAGE_BUYCOUNT,
+		EDU_COURSE.PAGE_VIEWCOUNT,
+		EDU_COURSE.END_TIME,
+		EDU_COURSE.LOSETYPE,
+		EDU_COURSE.LOSE_TIME,
+		EDU_COURSE.SELL_TYPE,
+		EDU_COURSE.LIVE_BEGIN_TIME,
+		EDU_COURSE.LIVE_END_TIME
+	</sql>
+	
+	<sql id="edu_live_course_properties">
+		#{courseId},
+		#{courseName},
+		#{isavaliable},
+		#{subjectId},
+		#{addTime},
+		#{sourcePrice},
+		#{currentPrice},
+		#{title},
+		#{context},
+		#{lessionNum},
+		#{logo},
+		#{updateTime},
+		#{pageBuycount},
+		#{pageViewcount},
+		#{endTime},
+		#{loseType},
+		#{loseTime},
+		#{sellType},
+		#{liveBeginTime},
+		#{liveEndTime}
+	</sql>
+
+	<!-- 分页查询课程，开始，前台专用 -->
+	<select id="queryWebLiveCourseListPage" parameterType="java.util.Map" resultMap="LiveCourseResult">
+		SELECT
+		<include refid="edu_live_course_columns"/>
+		,#{e.queryTime} as queryTime
+		FROM EDU_COURSE
+			<if test="e.subjectId>0">
+				LEFT JOIN SYS_SUBJECT ON SYS_SUBJECT.SUBJECT_ID=EDU_COURSE.SUBJECT_ID
+			</if>
+		<if test="e.memberTypeId>0">
+			LEFT JOIN edu_course_member ON edu_course_member.course_id=EDU_COURSE.course_id
+		</if>
+			<if test="e.teacherId>0">
+				LEFT JOIN EDU_COURSE_TEACHER ON EDU_COURSE_TEACHER.COURSE_ID=EDU_COURSE.COURSE_ID
+			</if>
+			<if test="e.isLiveing=='true'">
+				LEFT JOIN `edu_course_kpoint` ON `edu_course_kpoint`.`course_id` = EDU_COURSE.`course_id`
+			</if>
+		<where>
+			<if test="e.isLiveing=='true'"><!-- 正在直播 -->
+				<![CDATA[EDU_COURSE_KPOINT.LIVE_BEGIN_TIME <=#{e.queryTime} AND EDU_COURSE_KPOINT.LIVE_END_TIME >#{e.queryTime} ]]>
+			</if>
+			<if test="e.isavaliable>0">
+				AND EDU_COURSE.IS_AVALIABLE=#{e.isavaliable}
+			</if>
+			<if test="e.courseName!=null and e.courseName!=''">
+				AND EDU_COURSE.COURSE_NAME LIKE CONCAT('%',#{e.courseName},'%')
+			</if>
+			<if test="e.subjectId>0">
+				AND (edu_course.subject_id=#{e.subjectId} or sys_subject.PARENT_ID = #{e.subjectId})
+			</if>
+			<if test="e.memberTypeId>0">
+				AND edu_course_member.memberType_id = #{e.memberTypeId}
+			</if>
+			<if test="e.teacherId>0">
+				AND EDU_COURSE_TEACHER.TEACHER_ID=#{e.teacherId}
+			</if>
+			<if test="e.isFree=='true'"><!-- 查询免费课程 -->
+				and EDU_COURSE.CURRENT_PRICE=0
+			</if>
+			<if test="e.order=='FREE'"><!-- 查询免费课程 -->
+				and EDU_COURSE.CURRENT_PRICE=0
+			</if>
+			<if test="e.isoverdue=='false' ">
+				AND  (EDU_COURSE.END_TIME is NULL OR EDU_COURSE.END_TIME>NOW())
+			</if>
+			<if test="e.sellType!=null and e.sellType!=''">
+				AND EDU_COURSE.SELL_TYPE = #{e.sellType}
+			</if>
+			<if test="e.sellType_cou_pag=='true'"><!-- 课程 + 套餐-->
+				AND (edu_course.`SELL_TYPE`='COURSE' OR edu_course.`SELL_TYPE`='PACKAGE')
+			</if>
+		</where>
+		<if test="e.order=='FOLLOW'">
+			ORDER BY EDU_COURSE.PAGE_VIEWCOUNT DESC
+		</if>
+		<if test="e.order=='NEW'">
+			ORDER BY EDU_COURSE.ADD_TIME DESC
+		</if>
+		<if test="e.order=='BYGONE'">
+			ORDER BY EDU_COURSE.ADD_TIME
+		</if>
+		<if test="e.order=='ASCENDING'">
+			ORDER BY EDU_COURSE.CURRENT_PRICE ASC
+		</if>
+		<if test="e.order=='DESCENDING'">
+			ORDER BY EDU_COURSE.CURRENT_PRICE DESC
+		</if>
+		<include refid="publicMapper.pageEnd"/>
+	</select>
+
+	<select id="queryWebLiveCourseListPageCount" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(1)
+		FROM EDU_COURSE
+			<if test="e.subjectId>0">
+				LEFT JOIN SYS_SUBJECT ON SYS_SUBJECT.SUBJECT_ID=EDU_COURSE.SUBJECT_ID
+			</if>
+			<if test="e.teacherId>0">
+				LEFT JOIN EDU_COURSE_TEACHER ON EDU_COURSE_TEACHER.COURSE_ID=EDU_COURSE.COURSE_ID
+			</if>
+			<if test="e.isLiveing=='true'">
+				LEFT JOIN `edu_course_kpoint` ON `edu_course_kpoint`.`course_id` = EDU_COURSE.`course_id`
+			</if>
+		<where>
+			<if test="e.isLiveing=='true'"><!-- 正在直播 -->
+				<![CDATA[EDU_COURSE_KPOINT.LIVE_BEGIN_TIME <=#{e.queryTime} AND EDU_COURSE_KPOINT.LIVE_END_TIME >#{e.queryTime} ]]>
+			</if>
+			<if test="e.isavaliable>0">
+				and EDU_COURSE.IS_AVALIABLE=#{e.isavaliable}
+			</if>
+			<if test="e.courseName!=null and e.courseName!=''">
+				AND EDU_COURSE.COURSE_NAME LIKE CONCAT('%',#{e.courseName},'%')
+			</if>
+			<if test="e.subjectId>0">
+				AND (edu_course.subject_id=#{e.subjectId} or sys_subject.PARENT_ID = #{e.subjectId})
+			</if>
+			<if test="e.teacherId>0">
+				AND EDU_COURSE_TEACHER.TEACHER_ID=#{e.teacherId}
+			</if>
+			<if test="e.isFree=='true'"><!-- 查询免费课程 -->
+				and EDU_COURSE.CURRENT_PRICE=0
+			</if>
+			<if test="e.order=='FREE'"><!-- 查询免费课程 -->
+				and EDU_COURSE.CURRENT_PRICE=0
+			</if>
+			<if test="e.sellType!=null and e.sellType!=''">
+				AND EDU_COURSE.SELL_TYPE = #{e.sellType}
+			</if>
+			<if test="e.sellType_cou_pag=='true'"><!-- 课程 + 套餐-->
+				AND (edu_course.`SELL_TYPE`='COURSE' OR edu_course.`SELL_TYPE`='PACKAGE')
+			</if>
+		</where>
+	</select>
+	<!-- 分页查询课程，结束，前台专用 -->
+
+	<!-- 查询通过直播课程，查询节点 -->
+	<select id="queryKpointByCourse" parameterType="java.util.HashMap" resultType="CourseKpoint">
+		(
+			SELECT
+				EDU_COURSE_KPOINT.KPOINT_ID as kpointId,
+				EDU_COURSE_KPOINT.NAME as name,
+				EDU_COURSE_KPOINT.LIVE_BEGIN_TIME as liveBeginTime,
+				EDU_COURSE_KPOINT.LIVE_END_TIME as liveEndTime
+			FROM edu_course_kpoint
+			WHERE
+				<![CDATA[ edu_course_kpoint.`live_begin_time`<=#{queryTime} AND edu_course_kpoint.`live_end_time`>#{queryTime} ]]>
+			AND edu_course_kpoint.`course_id`=#{coruseId}
+			ORDER BY EDU_COURSE_KPOINT.LIVE_BEGIN_TIME ASC
+		)<!-- 正在直播的-->
+		UNION ALL
+		(
+			SELECT
+				EDU_COURSE_KPOINT.KPOINT_ID as kpointId,
+				EDU_COURSE_KPOINT.NAME as name,
+				EDU_COURSE_KPOINT.LIVE_BEGIN_TIME as liveBeginTime,
+				EDU_COURSE_KPOINT.LIVE_END_TIME as liveEndTime
+			FROM edu_course_kpoint
+			WHERE <![CDATA[ edu_course_kpoint.`live_begin_time`>#{queryTime}]]>
+			AND edu_course_kpoint.`course_id`=#{coruseId}
+			ORDER BY EDU_COURSE_KPOINT.LIVE_BEGIN_TIME ASC
+		)<!-- 未直播的-->
+		UNION ALL
+		(
+			SELECT
+				EDU_COURSE_KPOINT.KPOINT_ID as kpointId,
+				EDU_COURSE_KPOINT.NAME as name,
+				EDU_COURSE_KPOINT.LIVE_BEGIN_TIME as liveBeginTime,
+				EDU_COURSE_KPOINT.LIVE_END_TIME as liveEndTime
+			FROM edu_course_kpoint
+			WHERE <![CDATA[ edu_course_kpoint.`live_end_time`<#{queryTime}]]>
+			AND edu_course_kpoint.`course_id`=#{coruseId}
+			ORDER BY EDU_COURSE_KPOINT.LIVE_BEGIN_TIME DESC
+		)<!-- 直播结束的-->
+		LIMIT 1
+	</select>
+</mapper>

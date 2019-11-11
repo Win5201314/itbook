@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="DataCleanMapper">
+
+	<sql id="edu_data_clean_column">
+	edu_data_clean.id,
+	edu_data_clean.name,
+	edu_data_clean.desc,
+	edu_data_clean.sql
+	</sql>
+	<sql id="edu_data_clean_property">
+	#{id},
+	#{name},
+	#{desc},
+	#{sql}
+	</sql>
+
+	<resultMap type="DataClean" id="DataCleanResult">
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="desc" column="desc"/>
+		<result property="sql" column="sql"/>
+	</resultMap>
+	
+	<!-- 创建数据清理记录 -->
+	<insert id="addDataClean" parameterType="DataClean" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+	INSERT INTO edu_data_clean(<include refid="edu_data_clean_column"/>) VALUE(<include refid="edu_data_clean_property"/>)
+	</insert>
+
+	<!-- 更新数据清理记录 -->
+	<update id="updateDataClean" parameterType="DataClean">
+		UPDATE edu_data_clean SET
+		edu_data_clean.name=#{name},
+		edu_data_clean.desc=#{desc},
+		edu_data_clean.sql=#{sql}
+		WHERE edu_data_clean.id=#{id}
+	</update>
+
+	<!-- 删除数据清理记录 -->
+	<delete id="delDataClean" parameterType="java.lang.String">
+	DELETE FROM edu_data_clean WHERE edu_data_clean.id IN (${value})
+	</delete>
+
+	<!--  分页查询数据清理记录列表，开始 -->
+	<select id="queryDataCleanPage" parameterType="java.util.Map" resultMap="DataCleanResult">
+	SELECT <include refid="edu_data_clean_column"/>
+		FROM edu_data_clean
+		<where>
+			<if test="e.name!=null and e.name!='' ">
+				edu_data_clean.name LIKE CONCAT('%',#{e.name},'%')
+			</if>
+		</where>
+	order by id desc
+	</select>
+
+	<select id="queryDataCleanById" parameterType="java.util.Map" resultMap="DataCleanResult">
+		SELECT <include refid="edu_data_clean_column"/> FROM edu_data_clean
+		where
+		id = #{id}
+	</select>
+	<select id="queryDoSql" parameterType="java.lang.String" resultMap="DataCleanResult">
+		${value}
+	</select>
+
+</mapper>

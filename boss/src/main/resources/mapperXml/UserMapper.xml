@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zsl.boss.demo.mapper.UserMapper">
+    <select id="selectUserByOpenid" parameterType="java.lang.String" resultType="com.zsl.boss.demo.entity.Users">
+        select * from users where openid = #{openid}
+    </select>
+    <select id="selectUserByPhone" parameterType="java.lang.String" resultType="com.zsl.boss.demo.entity.Users">
+        select * from users where phone = #{phone}
+    </select>
+    <insert id="insertWithPhone" useGeneratedKeys="true" keyProperty="id" parameterType="java.lang.String">
+        insert into users (phone) values (#{phone})
+    </insert>
+    <insert id="insertWithPhoneAndOpenid" useGeneratedKeys="true" keyProperty="id">
+        insert into users (phone, openid) values (#{phone}, #{openid})
+    </insert>
+    <update id="updateWithPhoneByOpenid" useGeneratedKeys="true" keyProperty="id">
+        update users set phone = #{phone} where openid = #{openid}
+    </update>
+    <select id="selectUserById" resultType="com.zsl.boss.demo.entity.Users">
+        select * from users where id = #{id}
+    </select>
+    <select id="selectByPhone" parameterType="java.lang.String" resultType="com.zsl.boss.demo.entity.Users">
+        select * from users where phone = #{phone}
+    </select>
+    <select id="selectIdByPhone" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select id from users where phone = #{phone}
+    </select>
+    <update id="updateJoinWorkTime" useGeneratedKeys="true" keyProperty="id">
+        update users set joinWorkTime = #{joinWorkTime} where id = #{id}
+    </update>
+    <update id="updateDateOfBirth" useGeneratedKeys="true" keyProperty="id">
+        update users set dateOfBirth = #{dateOfBirth} where id = #{id}
+    </update>
+    <update id="updateSuperiority" useGeneratedKeys="true" keyProperty="id">
+        update users set superiority = #{superiority} where id = #{id}
+    </update>
+    <update id="updateJobStatus" useGeneratedKeys="true" keyProperty="id">
+        update users set jobStatus = #{jobStatus} where id = #{id}
+    </update>
+    <update id="updateIsHideResume" useGeneratedKeys="true" keyProperty="id">
+        update users set isHideResume = #{isHideResume} where id = #{id}
+    </update>
+    <update id="updateIshideResumeToHeadhunter" useGeneratedKeys="true" keyProperty="id">
+        update users set isHideResumeToHeadhunter = #{isHideResumeToHeadhunter} where id = #{id}
+    </update>
+    <update id="updateIsLookHeadhunterJobs" useGeneratedKeys="true" keyProperty="id">
+        update users set isLookHeadhunterJobs = #{isLookHeadhunterJobs} where id = #{id}
+    </update>
+    <update id="updateIsEncryptionTelephoneCanCallMe" useGeneratedKeys="true" keyProperty="id">
+        update users set isEncryptionTelephoneCanCallMe = #{isEncryptionTelephoneCanCallMe} where id = #{id}
+    </update>
+    <select id="selectJobStatus" resultType="java.lang.Integer">
+        select jobStatus from users where id = #{id}
+    </select>
+</mapper>

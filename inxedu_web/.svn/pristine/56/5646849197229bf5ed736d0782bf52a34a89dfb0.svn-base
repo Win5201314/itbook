@@ -1,0 +1,6 @@
+#upload image path图片上传路径，统一部署时，目录设置为inxedu_web下
+file.root=
+#项目名（上传类型为空时统一上传到此目录下）
+projectName=inxedu
+#允许上传类型
+imageType=jpg,gif,png,jpeg

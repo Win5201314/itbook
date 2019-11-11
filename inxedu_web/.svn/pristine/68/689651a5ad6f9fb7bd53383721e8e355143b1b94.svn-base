@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="LiveGenseeMapper">
+	<resultMap id="LiveGenseeResult" type="LiveGensee">
+		<result property="id" column="id" />
+		<result property="liveId" column="live_id" />
+		<result property="subject" column="subject" />
+		<result property="teacherToken" column="teacherToken" />
+		<result property="studentToken" column="studentToken" />
+		<result property="studentClientToken" column="studentClientToken" />
+		<result property="startDate" column="startDate" />
+		<result property="invalidDate" column="invalidDate" />
+		<result property="assistantToken" column="assistantToken" />
+		<result property="speakerInfo" column="speakerInfo" />
+		<result property="scheduleInfo" column="scheduleInfo" />
+		<result property="webJoin" column="webJoin" />
+		<result property="clientJoin" column="clientJoin" />
+		<result property="description" column="description" />
+		<result property="duration" column="duration" />
+		<result property="uiMode" column="uiMode" />
+		<result property="uiColor" column="uiColor" />
+		<result property="scene" column="scene" />
+		<result property="uiWindow" column="uiWindow" />
+		<result property="uiVideo" column="uiVideo" />
+		<result property="upgrade" column="upgrade" />
+		<result property="sec" column="sec" />
+		<result property="realtime" column="realtime" />
+		<result property="maxAttendees" column="maxAttendees" />
+		<result property="genseeId" column="gensee_id" />
+		<result property="number" column="number" />
+		<result property="teacherJoinUrl" column="teacherJoinUrl" />
+		<result property="studentJoinUrl" column="studentJoinUrl" />
+	</resultMap>
+
+	<sql id="edu_live_gensee_columns">
+		edu_live_gensee.id,
+		edu_live_gensee.live_id,
+		edu_live_gensee.subject,
+		edu_live_gensee.teacherToken,
+		edu_live_gensee.studentToken,
+		edu_live_gensee.studentClientToken,
+		edu_live_gensee.startDate,
+		edu_live_gensee.invalidDate,
+		edu_live_gensee.assistantToken,
+		edu_live_gensee.speakerInfo,
+		edu_live_gensee.scheduleInfo,
+		edu_live_gensee.webJoin,
+		edu_live_gensee.clientJoin,
+		edu_live_gensee.description,
+		edu_live_gensee.duration,
+		edu_live_gensee.uiMode,
+		edu_live_gensee.uiColor,
+		edu_live_gensee.scene,
+		edu_live_gensee.uiWindow,
+		edu_live_gensee.uiVideo,
+		edu_live_gensee.upgrade,
+		edu_live_gensee.sec,
+		edu_live_gensee.realtime,
+		edu_live_gensee.maxAttendees,
+		edu_live_gensee.gensee_id,
+		edu_live_gensee.number,
+		edu_live_gensee.teacherJoinUrl,
+		edu_live_gensee.studentJoinUrl
+	</sql>
+
+	<sql id="edu_live_gensee_properties">
+		#{id},
+		#{liveId},
+		#{subject},
+		#{teacherToken},
+		#{studentToken},
+		#{studentClientToken},
+		#{startDate},
+		#{invalidDate},
+		#{assistantToken},
+		#{speakerInfo},
+		#{scheduleInfo},
+		#{webJoin},
+		#{clientJoin},
+		#{description},
+		#{duration},
+		#{uiMode},
+		#{uiColor},
+		#{scene},
+		#{uiWindow},
+		#{uiVideo},
+		#{upgrade},
+		#{sec},
+		#{realtime},
+		#{maxAttendees},
+		#{genseeId},
+		#{number},
+		#{teacherJoinUrl},
+		#{studentJoinUrl}
+	</sql>
+
+	<!-- 添加LiveGensee -->
+	<insert id="addLiveGensee" parameterType="LiveGensee" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO edu_live_gensee (
+		<include refid="edu_live_gensee_columns" />
+		)
+		VALUES(
+		<include refid="edu_live_gensee_properties" />
+		)
+	</insert>
+
+	<!-- 删除LiveGensee -->
+	<delete id="delLiveGenseeById" parameterType="long">
+		DELETE FROM edu_live_gensee WHERE edu_live_gensee.id = #{value}
+	</delete>
+
+	<!-- 修改LiveGensee -->
+	<update id="updateLiveGensee" parameterType="LiveGensee">
+		UPDATE edu_live_gensee SET
+		<!--edu_live_gensee.live_id = #{liveId},-->
+		edu_live_gensee.subject = #{subject},
+		edu_live_gensee.teacherToken = #{teacherToken},
+		edu_live_gensee.studentToken = #{studentToken},
+		edu_live_gensee.studentClientToken = #{studentClientToken},
+		edu_live_gensee.startDate = #{startDate},
+		edu_live_gensee.invalidDate = #{invalidDate},
+		edu_live_gensee.assistantToken = #{assistantToken},
+		edu_live_gensee.speakerInfo = #{speakerInfo},
+		edu_live_gensee.scheduleInfo = #{scheduleInfo},
+		edu_live_gensee.webJoin = #{webJoin},
+		edu_live_gensee.clientJoin = #{clientJoin},
+		edu_live_gensee.description = #{description},
+		edu_live_gensee.duration = #{duration},
+		edu_live_gensee.uiMode = #{uiMode},
+		edu_live_gensee.uiColor = #{uiColor},
+		edu_live_gensee.scene = #{scene},
+		edu_live_gensee.uiWindow = #{uiWindow},
+		edu_live_gensee.uiVideo = #{uiVideo},
+		edu_live_gensee.upgrade = #{upgrade},
+		edu_live_gensee.sec = #{sec},
+		edu_live_gensee.realtime = #{realtime},
+		edu_live_gensee.maxAttendees = #{maxAttendees}
+		<!--,edu_live_gensee.gensee_id = #{genseeId},
+edu_live_gensee.number = #{number},
+edu_live_gensee.teacherJoinUrl = #{teacherJoinUrl},
+edu_live_gensee.studentJoinUrl = #{studentJoinUrl}-->
+		WHERE edu_live_gensee.id = #{id}
+	</update>
+
+	<!-- 根据id获取单个LiveGensee对象 -->
+	<select id="getLiveGenseeById" resultMap="LiveGenseeResult" parameterType="long">
+		SELECT
+		<include refid="edu_live_gensee_columns" />
+		FROM edu_live_gensee WHERE edu_live_gensee.id = #{value}
+	</select>
+
+	<!-- 根据条件获取LiveGensee分页列表 -->
+	<select id="queryLiveGenseeListPage" resultMap="LiveGenseeResult" parameterType="java.util.Map">
+		SELECT
+		<include refid="edu_live_gensee_columns" />
+		FROM edu_live_gensee
+		<where>
+			<if test="e.id !=null and e.id>0">
+				AND edu_live_gensee.id = #{e.id}
+			</if>
+			<if test="e.liveId!=null and e.liveId!='' ">
+				AND edu_live_gensee.live_id = #{e.liveId}
+			</if>
+			<if test="e.subject!=null and e.subject!='' ">
+				AND edu_live_gensee.subject = #{e.subject}
+			</if>
+			<if test="e.teacherToken!=null and e.teacherToken!='' ">
+				AND edu_live_gensee.teacherToken = #{e.teacherToken}
+			</if>
+			<if test="e.studentToken!=null and e.studentToken!='' ">
+				AND edu_live_gensee.studentToken = #{e.studentToken}
+			</if>
+			<if test="e.studentClientToken!=null and e.studentClientToken!='' ">
+				AND edu_live_gensee.studentClientToken = #{e.studentClientToken}
+			</if>
+			<if test="e.startDate!=null and e.startDate!='' ">
+				AND edu_live_gensee.startDate = #{e.startDate}
+			</if>
+			<if test="e.invalidDate!=null and e.invalidDate!='' ">
+				AND edu_live_gensee.invalidDate = #{e.invalidDate}
+			</if>
+			<if test="e.assistantToken!=null and e.assistantToken!='' ">
+				AND edu_live_gensee.assistantToken = #{e.assistantToken}
+			</if>
+			<if test="e.speakerInfo!=null and e.speakerInfo!='' ">
+				AND edu_live_gensee.speakerInfo = #{e.speakerInfo}
+			</if>
+			<if test="e.scheduleInfo!=null and e.scheduleInfo!='' ">
+				AND edu_live_gensee.scheduleInfo = #{e.scheduleInfo}
+			</if>
+			<if test="e.webJoin!=null and e.webJoin!='' ">
+				AND edu_live_gensee.webJoin = #{e.webJoin}
+			</if>
+			<if test="e.clientJoin!=null and e.clientJoin!='' ">
+				AND edu_live_gensee.clientJoin = #{e.clientJoin}
+			</if>
+			<if test="e.description!=null and e.description!='' ">
+				AND edu_live_gensee.description = #{e.description}
+			</if>
+			<if test="e.duration!=null and e.duration!='' ">
+				AND edu_live_gensee.duration = #{e.duration}
+			</if>
+			<if test="e.uiMode!=null and e.uiMode!='' ">
+				AND edu_live_gensee.uiMode = #{e.uiMode}
+			</if>
+			<if test="e.uiColor!=null and e.uiColor!='' ">
+				AND edu_live_gensee.uiColor = #{e.uiColor}
+			</if>
+			<if test="e.scene!=null and e.scene!='' ">
+				AND edu_live_gensee.scene = #{e.scene}
+			</if>
+			<if test="e.uiWindow!=null and e.uiWindow!='' ">
+				AND edu_live_gensee.uiWindow = #{e.uiWindow}
+			</if>
+			<if test="e.uiVideo!=null and e.uiVideo!='' ">
+				AND edu_live_gensee.uiVideo = #{e.uiVideo}
+			</if>
+			<if test="e.upgrade!=null and e.upgrade!='' ">
+				AND edu_live_gensee.upgrade = #{e.upgrade}
+			</if>
+			<if test="e.sec!=null and e.sec!='' ">
+				AND edu_live_gensee.sec = #{e.sec}
+			</if>
+			<if test="e.realtime!=null and e.realtime!='' ">
+				AND edu_live_gensee.realtime = #{e.realtime}
+			</if>
+			<if test="e.maxAttendees!=null and e.maxAttendees!='' ">
+				AND edu_live_gensee.maxAttendees = #{e.maxAttendees}
+			</if>
+			<if test="e.genseeId!=null and e.genseeId!='' ">
+				AND edu_live_gensee.gensee_id = #{e.genseeId}
+			</if>
+			<if test="e.number!=null and e.number!='' ">
+				AND edu_live_gensee.number = #{e.number}
+			</if>
+			<if test="e.teacherJoinUrl!=null and e.teacherJoinUrl!='' ">
+				AND edu_live_gensee.teacherJoinUrl = #{e.teacherJoinUrl}
+			</if>
+			<if test="e.studentJoinUrl!=null and e.studentJoinUrl!='' ">
+				AND edu_live_gensee.studentJoinUrl = #{e.studentJoinUrl}
+			</if>
+		</where>
+		<include refid="publicMapper.pageEnd"/>
+	</select>
+	<select id="queryLiveGenseeListPageCount" resultType="int" parameterType="java.util.Map">
+		SELECT
+		COUNT(1)
+		FROM edu_live_gensee
+		<where>
+			<if test="e.id !=null and e.id>0">
+				AND edu_live_gensee.id = #{e.id}
+			</if>
+			<if test="e.liveId!=null and e.liveId!='' ">
+				AND edu_live_gensee.live_id = #{e.liveId}
+			</if>
+			<if test="e.subject!=null and e.subject!='' ">
+				AND edu_live_gensee.subject = #{e.subject}
+			</if>
+			<if test="e.teacherToken!=null and e.teacherToken!='' ">
+				AND edu_live_gensee.teacherToken = #{e.teacherToken}
+			</if>
+			<if test="e.studentToken!=null and e.studentToken!='' ">
+				AND edu_live_gensee.studentToken = #{e.studentToken}
+			</if>
+			<if test="e.studentClientToken!=null and e.studentClientToken!='' ">
+				AND edu_live_gensee.studentClientToken = #{e.studentClientToken}
+			</if>
+			<if test="e.startDate!=null and e.startDate!='' ">
+				AND edu_live_gensee.startDate = #{e.startDate}
+			</if>
+			<if test="e.invalidDate!=null and e.invalidDate!='' ">
+				AND edu_live_gensee.invalidDate = #{e.invalidDate}
+			</if>
+			<if test="e.assistantToken!=null and e.assistantToken!='' ">
+				AND edu_live_gensee.assistantToken = #{e.assistantToken}
+			</if>
+			<if test="e.speakerInfo!=null and e.speakerInfo!='' ">
+				AND edu_live_gensee.speakerInfo = #{e.speakerInfo}
+			</if>
+			<if test="e.scheduleInfo!=null and e.scheduleInfo!='' ">
+				AND edu_live_gensee.scheduleInfo = #{e.scheduleInfo}
+			</if>
+			<if test="e.webJoin!=null and e.webJoin!='' ">
+				AND edu_live_gensee.webJoin = #{e.webJoin}
+			</if>
+			<if test="e.clientJoin!=null and e.clientJoin!='' ">
+				AND edu_live_gensee.clientJoin = #{e.clientJoin}
+			</if>
+			<if test="e.description!=null and e.description!='' ">
+				AND edu_live_gensee.description = #{e.description}
+			</if>
+			<if test="e.duration!=null and e.duration!='' ">
+				AND edu_live_gensee.duration = #{e.duration}
+			</if>
+			<if test="e.uiMode!=null and e.uiMode!='' ">
+				AND edu_live_gensee.uiMode = #{e.uiMode}
+			</if>
+			<if test="e.uiColor!=null and e.uiColor!='' ">
+				AND edu_live_gensee.uiColor = #{e.uiColor}
+			</if>
+			<if test="e.scene!=null and e.scene!='' ">
+				AND edu_live_gensee.scene = #{e.scene}
+			</if>
+			<if test="e.uiWindow!=null and e.uiWindow!='' ">
+				AND edu_live_gensee.uiWindow = #{e.uiWindow}
+			</if>
+			<if test="e.uiVideo!=null and e.uiVideo!='' ">
+				AND edu_live_gensee.uiVideo = #{e.uiVideo}
+			</if>
+			<if test="e.upgrade!=null and e.upgrade!='' ">
+				AND edu_live_gensee.upgrade = #{e.upgrade}
+			</if>
+			<if test="e.sec!=null and e.sec!='' ">
+				AND edu_live_gensee.sec = #{e.sec}
+			</if>
+			<if test="e.realtime!=null and e.realtime!='' ">
+				AND edu_live_gensee.realtime = #{e.realtime}
+			</if>
+			<if test="e.maxAttendees!=null and e.maxAttendees!='' ">
+				AND edu_live_gensee.maxAttendees = #{e.maxAttendees}
+			</if>
+			<if test="e.genseeId!=null and e.genseeId!='' ">
+				AND edu_live_gensee.gensee_id = #{e.genseeId}
+			</if>
+			<if test="e.number!=null and e.number!='' ">
+				AND edu_live_gensee.number = #{e.number}
+			</if>
+			<if test="e.teacherJoinUrl!=null and e.teacherJoinUrl!='' ">
+				AND edu_live_gensee.teacherJoinUrl = #{e.teacherJoinUrl}
+			</if>
+			<if test="e.studentJoinUrl!=null and e.studentJoinUrl!='' ">
+				AND edu_live_gensee.studentJoinUrl = #{e.studentJoinUrl}
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据条件获取LiveGensee列表 -->
+	<select id="queryLiveGenseeList" parameterType="LiveGensee" resultMap="LiveGenseeResult">
+		SELECT
+		<include refid="edu_live_gensee_columns" />
+		FROM edu_live_gensee
+		<where>
+			<if test="id !=null and id>0">
+				AND edu_live_gensee.id = #{id}
+			</if>
+			<if test="liveId!=null and liveId!='' ">
+				AND edu_live_gensee.live_id = #{liveId}
+			</if>
+			<if test="subject!=null and subject!='' ">
+				AND edu_live_gensee.subject = #{subject}
+			</if>
+			<if test="teacherToken!=null and teacherToken!='' ">
+				AND edu_live_gensee.teacherToken = #{teacherToken}
+			</if>
+			<if test="studentToken!=null and studentToken!='' ">
+				AND edu_live_gensee.studentToken = #{studentToken}
+			</if>
+			<if test="studentClientToken!=null and studentClientToken!='' ">
+				AND edu_live_gensee.studentClientToken = #{studentClientToken}
+			</if>
+			<if test="startDate!=null and startDate!='' ">
+				AND edu_live_gensee.startDate = #{startDate}
+			</if>
+			<if test="invalidDate!=null and invalidDate!='' ">
+				AND edu_live_gensee.invalidDate = #{invalidDate}
+			</if>
+			<if test="assistantToken!=null and assistantToken!='' ">
+				AND edu_live_gensee.assistantToken = #{assistantToken}
+			</if>
+			<if test="speakerInfo!=null and speakerInfo!='' ">
+				AND edu_live_gensee.speakerInfo = #{speakerInfo}
+			</if>
+			<if test="scheduleInfo!=null and scheduleInfo!='' ">
+				AND edu_live_gensee.scheduleInfo = #{scheduleInfo}
+			</if>
+			<if test="webJoin!=null and webJoin!='' ">
+				AND edu_live_gensee.webJoin = #{webJoin}
+			</if>
+			<if test="clientJoin!=null and clientJoin!='' ">
+				AND edu_live_gensee.clientJoin = #{clientJoin}
+			</if>
+			<if test="description!=null and description!='' ">
+				AND edu_live_gensee.description = #{description}
+			</if>
+			<if test="duration!=null and duration!='' ">
+				AND edu_live_gensee.duration = #{duration}
+			</if>
+			<if test="uiMode!=null and uiMode!='' ">
+				AND edu_live_gensee.uiMode = #{uiMode}
+			</if>
+			<if test="uiColor!=null and uiColor!='' ">
+				AND edu_live_gensee.uiColor = #{uiColor}
+			</if>
+			<if test="scene!=null and scene!='' ">
+				AND edu_live_gensee.scene = #{scene}
+			</if>
+			<if test="uiWindow!=null and uiWindow!='' ">
+				AND edu_live_gensee.uiWindow = #{uiWindow}
+			</if>
+			<if test="uiVideo!=null and uiVideo!='' ">
+				AND edu_live_gensee.uiVideo = #{uiVideo}
+			</if>
+			<if test="upgrade!=null and upgrade!='' ">
+				AND edu_live_gensee.upgrade = #{upgrade}
+			</if>
+			<if test="sec!=null and sec!='' ">
+				AND edu_live_gensee.sec = #{sec}
+			</if>
+			<if test="realtime!=null and realtime!='' ">
+				AND edu_live_gensee.realtime = #{realtime}
+			</if>
+			<if test="maxAttendees!=null and maxAttendees!='' ">
+				AND edu_live_gensee.maxAttendees = #{maxAttendees}
+			</if>
+			<if test="genseeId!=null and genseeId!='' ">
+				AND edu_live_gensee.gensee_id = #{genseeId}
+			</if>
+			<if test="number!=null and number!='' ">
+				AND edu_live_gensee.number = #{number}
+			</if>
+			<if test="teacherJoinUrl!=null and teacherJoinUrl!='' ">
+				AND edu_live_gensee.teacherJoinUrl = #{teacherJoinUrl}
+			</if>
+			<if test="studentJoinUrl!=null and studentJoinUrl!='' ">
+				AND edu_live_gensee.studentJoinUrl = #{studentJoinUrl}
+			</if>
+		</where>
+	</select>
+</mapper>

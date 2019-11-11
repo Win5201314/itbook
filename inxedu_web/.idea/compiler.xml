@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="inxedu-account" />
+        <module name="inxedu-common" />
+        <module name="inxedu-coupon" />
+        <module name="inxedu-course-card" />
+        <module name="inxedu-invite" />
+        <module name="inxedu-live" />
+        <module name="inxedu-member" />
+        <module name="inxedu-third-party-login" />
+        <module name="inxedu_upload" />
+        <module name="inxedu_web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="inxedu" target="1.7" />
+      <module name="inxedu-account" target="1.7" />
+      <module name="inxedu-common" target="1.7" />
+      <module name="inxedu-coupon" target="1.7" />
+      <module name="inxedu-course-card" target="1.7" />
+      <module name="inxedu-invite" target="1.7" />
+      <module name="inxedu-live" target="1.7" />
+      <module name="inxedu-member" target="1.7" />
+      <module name="inxedu-third-party-login" target="1.7" />
+      <module name="inxedu_upload" target="1.7" />
+      <module name="inxedu_web" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

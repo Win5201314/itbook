@@ -1,0 +1,15 @@
+windows中报错 复制 这些文件到jdk的bin目录即可
+sigar-x86-winnt.dll
+sigar-amd64-winnt.dll
+
+
+
+
+linux中报错 复制 这些文件到 web-inf/lib 中，打包后即可
+libsigar-amd64-linux.so
+libsigar-x86-linux.so
+sigar-amd64-winnt.dll
+sigar-x86-winnt.dll
+sigar-x86-winnt.lib
+
+
