@@ -25,15 +25,15 @@
         update Users
         <set>
             <if test="username != null" >
-                username = #{username, jdbcType=VARCHAR},
+                username = #{users.username, jdbcType=VARCHAR},
             </if>
             <if test="avatar != null">
-                avatar = #{avatar, jdbcType=VARCHAR},
+                avatar = #{users.avatar, jdbcType=VARCHAR},
             </if>
             <if test="update_time == null" >
                 update_time = now()
             </if>
         </set>
-        where openid = #{openid, jdbcType=VARCHAR}
+        where openid = #{users.openid, jdbcType=VARCHAR}
     </update>
 </mapper>

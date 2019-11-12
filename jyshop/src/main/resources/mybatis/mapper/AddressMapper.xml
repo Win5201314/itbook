@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zsl.jysc.mapper.AddressMapper" >
+    <resultMap id="BaseResultMap" type="address" >
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="userId" jdbcType="LONG" property="userId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="phoneNumber" jdbcType="VARCHAR" property="phoneNumber" />
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="county" jdbcType="VARCHAR" property="county"/>
+        <result column="detailAddress" jdbcType="VARCHAR" property="detailAddress"/>
+    </resultMap>
+    <select id="selectAddressByUserId" parameterType="long" resultMap="BaseResultMap">
+        select * from Address where userId = #{userId}
+    </select>
+    <insert id="addNewAddress" parameterType="address" useGeneratedKeys="true" keyProperty="id">
+        insert into Address(userId, name, phoneNumber, province, city, county, detailAddress)
+         values(#{address.userId}, #{address.name}, #{address.phoneNumber}, #{address.province}, #{address.city}, #{address.county}, #{address.detailAddress})
+    </insert>
+    <delete id="deleteAddress" parameterType="long">
+        delete * from Address where addressId = #{addressId}
+    </delete>
+    <update id="updateAddress" parameterType="address">
+        update Address
+        <set>
+            <if test="name != null" >
+                name = #{address.name, jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNumber != null">
+                phoneNumber = #{address.phoneNumber, jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                province = #{address.province, jdbcType=VARCHAR}
+            </if>
+            <if test="city != null">
+                city = #{address.city, jdbcType=VARCHAR}
+            </if>
+            <if test="county != null">
+                county = #{address.county, jdbcType=VARCHAR}
+            </if>
+            <if test="detailAddress != null">
+                detailAddress = #{address.detailAddress, jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{address.id}
+    </update>
+</mapper>
