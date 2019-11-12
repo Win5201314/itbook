@@ -1,137 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zsl.xiangqing.mapper.UserMapper" >
+<mapper namespace="com.zsl.jysc.mapper.UserMapper" >
     <resultMap id="BaseResultMap" type="users" >
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="openid" jdbcType="VARCHAR" property="openid"/>
+
         <result column="username" jdbcType="VARCHAR" property="username"/>
-        <result column="nickName" jdbcType="VARCHAR" property="nickName" />
-        <result column="dateOfBirth" jdbcType="TIMESTAMP" property="dateOfBirth" />
-        <result column="age" jdbcType="INTEGER" property="age" />
-        <result column="sex" jdbcType="VARCHAR" property="sex" />
-        <result column="wxAccount" jdbcType="VARCHAR" property="wxAccount" />
-        <result column="height" jdbcType="DOUBLE" property="height" />
-        <result column="weight" jdbcType="DOUBLE" property="weight" />
-        <result column="constellation" jdbcType="VARCHAR" property="constellation" />
-        <result column="education" jdbcType="VARCHAR" property="education" />
-        <result column="job" jdbcType="VARCHAR" property="job" />
-        <result column="salary" jdbcType="INTEGER" property="salary" />
-        <result column="carAndHome" jdbcType="VARCHAR" property="carAndHome" />
-        <result column="interest" jdbcType="VARCHAR" property="interest" />
-        <result column="mate" jdbcType="VARCHAR" property="mate" />
-        <result column="province" jdbcType="VARCHAR" property="province" />
-        <result column="city" jdbcType="VARCHAR" property="city" />
-        <result column="country" jdbcType="VARCHAR" property="country" />
         <result column="avatar" jdbcType="VARCHAR" property="avatar" />
-        <result column="email" jdbcType="VARCHAR" property="email" />
-        <result column="loginIp" jdbcType="VARCHAR" property="loginIp" />
-
-        <result column="longitude" jdbcType="DOUBLE" property="longitude" />
-        <result column="latitude" jdbcType="DOUBLE" property="latitude" />
-
-        <result column="delFlag" jdbcType="INTEGER" property="delFlag" />
 
         <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
         <result column="update_time" jdbcType="TIMESTAMP" property="update_time" />
     </resultMap>
-    <select id="selectUserByLoginName" parameterType="string" resultMap="BaseResultMap">
-        select * from Users where username = #{username}
+    <select id="selectIdByOpenid" parameterType="string" resultType="long">
+        select id from Users where openid = #{openid}
     </select>
-    <select id="selectUserByPhoneNumber" parameterType="string" resultMap="BaseResultMap">
-        select * from Users where username = #{username}
-    </select>
-    <select id="selectUserByEmail" parameterType="string" resultMap="BaseResultMap">
-        select * from Users where email = #{email}
-    </select>
-    <select id="selectUserByOpenid" parameterType="string" resultMap="BaseResultMap">
-        select * from Users where openid = #{openid}
-    </select>
-    <select id="checkOpenid" parameterType="string" resultType="int">
+    <select id="isExistOpenid" parameterType="string" resultType="int">
         select count(1) from Users where openid = #{openid}
     </select>
-    <select id="checkPhoneNumber" parameterType="string" resultType="int">
-        select count(1) from Users where username = #{username}
-    </select>
     <insert id="addNewUsers" parameterType="users" useGeneratedKeys="true" keyProperty="id">
-        insert into Users(username, password, openid, create_time, update_time)
-         values(#{users.username}, #{users.password}, #{users.openid}, now(), now())
+        insert into Users(username, openid, avatar, create_time, update_time)
+         values(#{users.username}, #{users.openid}, #{users.avatar}, now(), now())
     </insert>
-    <update id="updateUserInfo" parameterType="users">
+    <update id="updateUsernameAndAvatar" parameterType="users">
         update Users
         <set>
-            <if test="password != null">
-                password = #{password,jdbcType=VARCHAR},
-            </if>
-            <if test="nickName != null" >
-                nickName = #{nickName,jdbcType=VARCHAR},
-            </if>
-            <if test="dateOfBirth != null" >
-                dateOfBirth = #{dateOfBirth,jdbcType=TIMESTAMP},
-            </if>
-            <if test="age != null" >
-                age = #{age,jdbcType=INTEGER},
-            </if>
-            <if test="sex != null" >
-                sex = #{sex,jdbcType=VARCHAR},
-            </if>
-            <if test="wxAccount != null" >
-                wxAccount = #{wxAccount,jdbcType=VARCHAR},
-            </if>
-            <if test="height != null" >
-                height = #{height,jdbcType=DOUBLE},
-            </if>
-            <if test="weight != null" >
-                weight = #{weight,jdbcType=DOUBLE},
-            </if>
-            <if test="constellation != null">
-                constellation = #{constellation,jdbcType=VARCHAR},
-            </if>
-            <if test="education != null">
-                education = #{education,jdbcType=INTEGER},
-            </if>
-            <if test="job != null">
-                job = #{job,jdbcType=VARCHAR},
-            </if>
-            <if test="salary != null">
-                salary = #{salary,jdbcType=INTEGER},
-            </if>
-            <if test="carAndHome != null">
-                carAndHome = #{carAndHome,jdbcType=VARCHAR},
-            </if>
-            <if test="interest != null">
-                interest = #{interest,jdbcType=VARCHAR},
-            </if>
-            <if test="mate != null">
-                mate = #{mate,jdbcType=VARCHAR},
-            </if>
-            <if test="province != null">
-                province = #{province,jdbcType=VARCHAR},
-            </if>
-            <if test="city != null">
-                city = #{city,jdbcType=VARCHAR},
-            </if>
-            <if test="country != null">
-                country = #{country,jdbcType=VARCHAR},
+            <if test="username != null" >
+                username = #{username, jdbcType=VARCHAR},
             </if>
             <if test="avatar != null">
-                avatar = #{avatar,jdbcType=VARCHAR},
+                avatar = #{avatar, jdbcType=VARCHAR},
             </if>
-            <if test="email != null">
-                email = #{email,jdbcType=VARCHAR},
-            </if>
-            <if test="loginIp != null">
-                loginIp = #{loginIp,jdbcType=VARCHAR},
-            </if>
-            <if test="longitude != null">
-                longitude = #{longitude,jdbcType=VARCHAR},
-            </if>
-            <if test="latitude != null">
-                latitude = #{latitude,jdbcType=VARCHAR},
-            </if>
-            <if test="update_time != null" >
+            <if test="update_time == null" >
                 update_time = now()
             </if>
         </set>
-        where username = #{username,jdbcType=VARCHAR}
+        where openid = #{openid, jdbcType=VARCHAR}
     </update>
 </mapper>

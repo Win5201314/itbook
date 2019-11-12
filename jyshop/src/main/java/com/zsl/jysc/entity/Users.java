@@ -27,7 +27,7 @@ public class Users implements Serializable {
     @ApiModelProperty(name = "openid", value = "微信登录")
     private String openid;
     @NotNull
-    @ApiModelProperty(name = "username", value = "用户名,账号,就是手机号")
+    @ApiModelProperty(name = "username", value = "微信昵称")
     private String username;
     @ApiModelProperty(name = "avatar", value = "头像图片地址")
     private String avatar;

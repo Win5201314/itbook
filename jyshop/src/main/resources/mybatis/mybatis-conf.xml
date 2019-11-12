@@ -8,6 +8,6 @@
         也可在javabean 加上注解@Alias 来自定义别名， 例如： @Alias(user)
         <package name="com.dy.entity"/>
          -->
-        <!--<typeAlias alias="users" type="com.zsl.jysc.entity.Users"/>-->
+        <typeAlias alias="users" type="com.zsl.jysc.entity.Users"/>
     </typeAliases>
 </configuration>
