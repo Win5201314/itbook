@@ -4,12 +4,14 @@ import com.zsl.jysc.common.ServerResponse;
 import com.zsl.jysc.entity.Users;
 import com.zsl.jysc.service.IUserService;
 import com.zsl.jysc.util.JWTUtil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Api(value = "登录注册")
 @RestController
 public class UserController {
 

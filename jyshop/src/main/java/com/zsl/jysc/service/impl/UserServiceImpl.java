@@ -14,6 +14,11 @@ public class UserServiceImpl implements IUserService {
     private UserMapper userMapper;
 
     @Override
+    public boolean isExistOpenidAndUserId(String openid, Long userId) {
+        return false;
+    }
+
+    @Override
     public boolean isExistOpenid(String openid) {
         return userMapper.isExistOpenid(openid) >= 1;
     }

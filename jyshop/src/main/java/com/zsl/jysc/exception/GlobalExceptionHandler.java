@@ -22,6 +22,12 @@ public class GlobalExceptionHandler {
 
     private Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+    @ResponseBody
+    @ExceptionHandler(value = VerifyTokenException.class)
+    public ServerResponse<String> handleVerifyTokenException(VerifyTokenException e) {
+        return ServerResponse.createByErrorMessage(e.getMessage());
+    }
+
     //拦截未授权页面
     @ResponseStatus(value = HttpStatus.FORBIDDEN)
     @ExceptionHandler(UnauthorizedException.class)

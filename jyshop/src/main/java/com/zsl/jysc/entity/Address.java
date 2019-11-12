@@ -20,6 +20,8 @@ public class Address implements Serializable {
 
     @ApiModelProperty(name = "id", value = "主键id")
     private Integer id;
+    @ApiModelProperty(name = "userId", value = "用户主键")
+    private Long userId;
 
     @ApiModelProperty(name = "name", value = "姓名")
     private String name;
