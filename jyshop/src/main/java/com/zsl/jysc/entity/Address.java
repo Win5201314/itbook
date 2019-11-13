@@ -19,7 +19,7 @@ public class Address implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(name = "id", value = "主键id")
-    private Integer id;
+    private Long id;
     @ApiModelProperty(name = "userId", value = "用户主键")
     private Long userId;
 
