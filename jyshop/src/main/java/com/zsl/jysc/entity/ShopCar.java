@@ -1,6 +1,7 @@
 package com.zsl.jysc.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -37,9 +38,10 @@ public class ShopCar implements Serializable {
     @ApiModelProperty(name = "productCount", value = "产品数量")
     private Integer productCount;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    @ApiModelProperty(name = "joinDate", value = "加入时间")
-    private Date joinDate;
+    @JsonIgnore
+    @JsonFormat(pattern="yyyy-MM-dd", timezone = "GMT+8")
+    @ApiModelProperty(name = "create_time", value = "加入时间")
+    private Date create_time;
 
     //可能可以冗余
     /*

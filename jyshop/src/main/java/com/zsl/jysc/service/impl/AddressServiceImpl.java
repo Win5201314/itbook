@@ -28,12 +28,20 @@ public class AddressServiceImpl implements IAddressService {
     @Transactional
     @Override
     public boolean deleteAddress(long addressId) {
-        return addressMapper.deleteAddress(addressId) >= 1;
+        if (addressMapper.isExitAddress(addressId) >= 1) {
+            return addressMapper.deleteAddress(addressId) >= 1;
+        } else {
+            return true;
+        }
     }
 
     @Transactional
     @Override
     public boolean updateAddress(Address address) {
-        return addressMapper.updateAddress(address) >= 1;
+        if (addressMapper.isExitAddress(address.getId()) >= 1) {
+            return addressMapper.updateAddress(address) >= 1;
+        } else {
+            return true;
+        }
     }
 }

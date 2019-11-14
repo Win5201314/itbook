@@ -28,8 +28,8 @@ public class AddressController {
 
     @ApiOperation(value = "添加新地址")
     @PostMapping("/addNewAddress")
-    public ServerResponse<String> addNewAddress(@ApiParam(name = "address", value = "地址对象") Address address,
-                                                @ApiParam(name = "token", value = "口令") String token) throws VerifyTokenException {
+    public ServerResponse<String> addNewAddress(@ApiParam(name = "address", value = "地址对象", required = true) Address address,
+                                                @ApiParam(name = "token", value = "口令", required = true) String token) throws VerifyTokenException {
         Map<String, Object> map = JWTUtil.verifyToken(token);
         if (map == null) throw new VerifyTokenException("令牌验证失败");
         Long userId = (Long) map.get("userId");
@@ -48,7 +48,7 @@ public class AddressController {
 
     @ApiOperation(value = "查询地址")
     @PostMapping("/selectAddress")
-    public ServerResponse<List<Address>> selectAddress(@ApiParam(name = "token", value = "口令") String token) throws VerifyTokenException {
+    public ServerResponse<List<Address>> selectAddress(@ApiParam(name = "token", value = "口令", required = true) String token) throws VerifyTokenException {
         Map<String, Object> map = JWTUtil.verifyToken(token);
         if (map == null) throw new VerifyTokenException("令牌验证失败");
         Long userId = (Long) map.get("userId");
@@ -64,8 +64,8 @@ public class AddressController {
     @ApiOperation(value = "删除地址")
     @VerifyToken
     @PostMapping("/deleteAddress")
-    public ServerResponse<String> deleteAddress(@ApiParam(name = "token", value = "口令") String token,
-                                                @ApiParam(name = "addressId", value = "邮件地址主键") Long addressId) {
+    public ServerResponse<String> deleteAddress(@ApiParam(name = "token", value = "口令", required = true) String token,
+                                                @ApiParam(name = "addressId", value = "邮件地址主键", required = true) Long addressId) {
         if (addressService.deleteAddress(addressId)) {
             return ServerResponse.createBySuccess("删除成功");
         } else {
@@ -76,8 +76,8 @@ public class AddressController {
     @ApiOperation(value = "更新地址")
     @VerifyToken
     @PostMapping("/updateAddress")
-    public ServerResponse<String> updateAddress(@ApiParam(name = "token", value = "口令") String token,
-                                                @ApiParam(name = "address", value = "地址对象") Address address) {
+    public ServerResponse<String> updateAddress(@ApiParam(name = "token", value = "口令", required = true) String token,
+                                                @ApiParam(name = "address", value = "地址对象", required = true) Address address) {
         if (addressService.updateAddress(address)) {
             return ServerResponse.createBySuccess("更新成功");
         } else {

@@ -1,11 +1,14 @@
 package com.zsl.jysc.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @ApiModel(description = "供应商")
 @NoArgsConstructor
@@ -32,4 +35,14 @@ public class Provider implements Serializable {
     private String address;
     @ApiModelProperty(name = "legal", value = "法人")
     private String legal;
+
+    @JsonIgnore
+    @JsonFormat(pattern="yyyy-MM-dd", timezone = "GMT+8")
+    @ApiModelProperty(name = "create_time", value = "创建时间")
+    private Date create_time;
+
+    @JsonIgnore
+    @JsonFormat(pattern="yyyy-MM-dd", timezone = "GMT+8")
+    @ApiModelProperty(name = "update_time", value = "再次更新时间")
+    private Date update_time;
 }

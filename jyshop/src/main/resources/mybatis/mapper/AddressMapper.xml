@@ -11,6 +11,9 @@
         <result column="county" jdbcType="VARCHAR" property="county"/>
         <result column="detailAddress" jdbcType="VARCHAR" property="detailAddress"/>
     </resultMap>
+    <select id="isExitAddress" parameterType="long" resultType="int">
+        select count(1) from Address where id = #{addressId}
+    </select>
     <select id="selectAddressByUserId" parameterType="long" resultMap="BaseResultMap">
         select * from Address where userId = #{userId}
     </select>
@@ -31,16 +34,16 @@
                 phoneNumber = #{address.phoneNumber, jdbcType=VARCHAR},
             </if>
             <if test="province != null">
-                province = #{address.province, jdbcType=VARCHAR}
+                province = #{address.province, jdbcType=VARCHAR},
             </if>
             <if test="city != null">
-                city = #{address.city, jdbcType=VARCHAR}
+                city = #{address.city, jdbcType=VARCHAR},
             </if>
             <if test="county != null">
-                county = #{address.county, jdbcType=VARCHAR}
+                county = #{address.county, jdbcType=VARCHAR},
             </if>
             <if test="detailAddress != null">
-                detailAddress = #{address.detailAddress, jdbcType=VARCHAR}
+                detailAddress = #{address.detailAddress, jdbcType=VARCHAR},
             </if>
         </set>
         where id = #{address.id}

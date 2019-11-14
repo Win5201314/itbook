@@ -27,8 +27,8 @@ public class ShopCarController {
 
     @ApiOperation(value = "添加新购物车")
     @PostMapping("/addNewShopCar")
-    public ServerResponse<String> addNewShopCar(@ApiParam(name = "shopCar", value = "购物车") ShopCar shopCar,
-                                                @ApiParam(name = "token", value = "口令") String token) throws VerifyTokenException {
+    public ServerResponse<String> addNewShopCar(@ApiParam(name = "shopCar", value = "购物车", required = true) ShopCar shopCar,
+                                                @ApiParam(name = "token", value = "口令", required = true) String token) throws VerifyTokenException {
         Map<String, Object> map = JWTUtil.verifyToken(token);
         if (map == null) throw new VerifyTokenException("令牌验证失败");
         Long userId = (Long) map.get("userId");
@@ -47,9 +47,9 @@ public class ShopCarController {
 
     @ApiOperation(value = "查询购物车")
     @PostMapping("/selectShopCar")
-    public ServerResponse<String> selectShopCar(@ApiParam(name = "token", value = "口令") String token,
-                                                @ApiParam(name = "currentPageIndex", value = "当前查询index") long currentPageIndex,
-                                                @ApiParam(name = "selectSize", value = "最多查询条数") int selectSize) throws VerifyTokenException {
+    public ServerResponse<String> selectShopCar(@ApiParam(name = "token", value = "口令", required = true) String token,
+                                                @ApiParam(name = "currentPageIndex", value = "当前查询index", required = true) long currentPageIndex,
+                                                @ApiParam(name = "selectSize", value = "最多查询条数", required = true) int selectSize) throws VerifyTokenException {
         Map<String, Object> map = JWTUtil.verifyToken(token);
         if (map == null) throw new VerifyTokenException("令牌验证失败");
         Long userId = (Long) map.get("userId");
@@ -66,8 +66,8 @@ public class ShopCarController {
     @ApiOperation(value = "删除购物车")
     @PostMapping("/deleteShopCar")
     @VerifyToken
-    public ServerResponse<String> deleteShopCar(@ApiParam(name = "token", value = "口令") String token,
-                                                @ApiParam(name = "shopCarId", value = "购物车主键") Long shopCarId) {
+    public ServerResponse<String> deleteShopCar(@ApiParam(name = "token", value = "口令", required = true) String token,
+                                                @ApiParam(name = "shopCarId", value = "购物车主键", required = true) Long shopCarId) {
         if (shopCarService.deleteShopCarById(shopCarId)) {
             return ServerResponse.createBySuccess();
         } else {
@@ -81,8 +81,8 @@ public class ShopCarController {
     @ApiOperation(value = "更新购物车")
     @PostMapping("/updateShopCar")
     @VerifyToken
-    public ServerResponse<String> updateShopCar(@ApiParam(name = "token", value = "口令") String token,
-                                                @ApiParam(name = "shopCar", value = "购物车") ShopCar shopCar) {
+    public ServerResponse<String> updateShopCar(@ApiParam(name = "token", value = "口令", required = true) String token,
+                                                @ApiParam(name = "shopCar", value = "购物车", required = true) ShopCar shopCar) {
         if (shopCarService.updateShopCar(shopCar)) {
             return ServerResponse.createBySuccess();
         } else {

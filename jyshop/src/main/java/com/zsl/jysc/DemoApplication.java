@@ -50,6 +50,8 @@ public class DemoApplication {
      *  7.Shiro + redis:https://www.cnblogs.com/UncleWang001/articles/9779245.html
      *  8.阿里云短信服务:https://blog.csdn.net/qq_38225558/article/details/84954935
      *  自定义注解 + jwt
+     *
+     *  优惠券模块 暂时不写
      */
 
 }

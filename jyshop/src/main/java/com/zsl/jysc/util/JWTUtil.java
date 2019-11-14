@@ -64,4 +64,49 @@ public class JWTUtil {
             return null;
         }
     }
+
+    /**
+     * 生成签名，15分钟过期
+     */
+    public static String createAdminToken(String username, String password) {
+        try {
+            // 设置过期时间
+            Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
+            // 私钥和加密算法
+            Algorithm algorithm = Algorithm.HMAC256(TOKEN_SECRET);
+            // 设置头部信息
+            Map<String, Object> header = new HashMap<>(2);
+            header.put("Type", "Jwt");
+            header.put("alg", "HS256");
+            // 返回token字符串
+            return JWT.create()
+                    .withHeader(header)
+                    .withClaim("username", username)
+                    .withClaim("password", password)
+                    .withExpiresAt(date)
+                    .sign(algorithm);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 检验token是否正确
+     */
+    public static Map<String, Object> verifyAdminToken(String token) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(TOKEN_SECRET);
+            JWTVerifier verifier = JWT.require(algorithm).build();
+            DecodedJWT jwt = verifier.verify(token);
+            String username = jwt.getClaim("username").asString();
+            String password = jwt.getClaim("password").asString();
+            Map<String, Object> map = new HashMap<>();
+            map.put("username", username);
+            map.put("password", password);
+            return map;
+        } catch (Exception e){
+            return null;
+        }
+    }
 }

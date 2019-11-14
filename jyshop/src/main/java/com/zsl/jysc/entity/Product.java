@@ -1,11 +1,14 @@
 package com.zsl.jysc.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @ApiModel(description = "商品")
 @NoArgsConstructor
@@ -43,4 +46,14 @@ public class Product implements Serializable {
     private String title;
     @ApiModelProperty(name = "detailImages", value = "商品详细图片,图片url用英文逗号隔开")
     private String detailImages;
+
+    @JsonIgnore
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @ApiModelProperty(name = "create_time", value = "商品上架时间")
+    private Date create_time;
+
+    @JsonIgnore
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @ApiModelProperty(name = "update_time", value = "商品更新时间")
+    private Date update_time;
 }

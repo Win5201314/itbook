@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zsl.jysc.mapper.ProviderMapper" >
+    <resultMap id="BaseResultMap" type="provider" >
+        <id column="id" jdbcType="INTEGER" property="id" />
+
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="phoneNumber" jdbcType="VARCHAR" property="phoneNumber" />
+        <result column="linkman" jdbcType="VARCHAR" property="linkman"/>
+        <result column="businessNumber" jdbcType="VARCHAR" property="businessNumber"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="legal" jdbcType="VARCHAR" property="legal"/>
+
+        <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
+    </resultMap>
+    <select id="isExitProviderId" parameterType="long" resultType="int">
+        select count(1) from Provider where id = #{providerId}
+    </select>
+    <select id="isExitBusinessNumber" parameterType="string" resultType="int">
+        select count(1) from Provider where businessNumber = #{businessNumber}
+    </select>
+    <select id="selectProviderByBusinessNumber" parameterType="string" resultMap="BaseResultMap">
+        select * from Provider where businessNumber = #{businessNumber}
+    </select>
+    <insert id="addNewProvider" parameterType="provider" useGeneratedKeys="true" keyProperty="id">
+        insert into Provider(name, linkman, phoneNumber, businessNumber, address, legal, create_time, update_time)
+         values(#{provider.name}, #{provider.linkman}, #{provider.phoneNumber}, #{provider.businessNumber}, #{provider.address}, #{provider.legal}, now(), now())
+    </insert>
+    <delete id="deleteProvider" parameterType="long">
+        delete * from Provider where providerId = #{providerId}
+    </delete>
+    <update id="updateProvider" parameterType="provider">
+        update Provider
+        <set>
+            <if test="name != null" >
+                name = #{provider.name, jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNumber != null">
+                phoneNumber = #{provider.phoneNumber, jdbcType=VARCHAR},
+            </if>
+            <if test="linkman != null">
+                linkman = #{provider.linkman, jdbcType=VARCHAR},
+            </if>
+            <if test="businessNumber != null">
+                businessNumber = #{provider.businessNumber, jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{provider.address, jdbcType=VARCHAR},
+            </if>
+            <if test="legal != null">
+                legal = #{provider.legal, jdbcType=VARCHAR},
+            </if>
+            <if test="update_time == null">
+                update_time = now()
+            </if>
+        </set>
+        where id = #{provider.id}
+    </update>
+</mapper>

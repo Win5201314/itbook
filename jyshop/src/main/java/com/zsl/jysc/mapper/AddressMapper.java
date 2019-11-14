@@ -7,6 +7,8 @@ import java.util.List;
 
 @Mapper
 public interface AddressMapper {
+
+    int isExitAddress(Long addressId);
     boolean addNewAddress(Address address);
     List<Address> selectAddressByUserId(long userId);
     int deleteAddress(long addressId);

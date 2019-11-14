@@ -10,5 +10,9 @@
          -->
         <typeAlias type="com.zsl.jysc.entity.Users" alias="users"/>
         <typeAlias type="com.zsl.jysc.entity.Address" alias="address"/>
+        <typeAlias type="com.zsl.jysc.entity.ShopCar" alias="shopCar"/>
+        <typeAlias type="com.zsl.jysc.entity.Provider" alias="provider"/>
+        <typeAlias type="com.zsl.jysc.entity.Order" alias="order"/>
+        <typeAlias type="com.zsl.jysc.entity.Product" alias="product"/>
     </typeAliases>
 </configuration>
