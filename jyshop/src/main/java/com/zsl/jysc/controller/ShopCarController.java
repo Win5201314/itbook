@@ -2,6 +2,8 @@ package com.zsl.jysc.controller;
 
 import com.zsl.jysc.common.ServerResponse;
 import com.zsl.jysc.common.annotation.VerifyToken;
+import com.zsl.jysc.common.controller.BaseController;
+import com.zsl.jysc.common.page.TableDataInfo;
 import com.zsl.jysc.entity.ShopCar;
 import com.zsl.jysc.exception.VerifyTokenException;
 import com.zsl.jysc.service.IShopCarService;
@@ -14,11 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @Api(value = "购物车模块")
 @RestController
-public class ShopCarController {
+public class ShopCarController extends BaseController {
 
     @Autowired
     private IUserService userService;
@@ -47,17 +50,24 @@ public class ShopCarController {
 
     @ApiOperation(value = "查询购物车")
     @PostMapping("/selectShopCar")
-    public ServerResponse<String> selectShopCar(@ApiParam(name = "token", value = "口令", required = true) String token,
-                                                @ApiParam(name = "currentPageIndex", value = "当前查询index", required = true) long currentPageIndex,
-                                                @ApiParam(name = "selectSize", value = "最多查询条数", required = true) int selectSize) throws VerifyTokenException {
+    public ServerResponse<TableDataInfo> selectShopCar(@ApiParam(name = "token", value = "口令", required = true) String token,
+                                                @ApiParam(name = "pageNum", value = "当前记录起始索引,前端要自己记住再传递过来", required = true) Integer pageNum,
+                                                @ApiParam(name = "pageSize", value = "每页显示记录数,默认10条", required = false, defaultValue = "10") Integer pageSize,
+                                                @ApiParam(name = "isAsc", value = "降序", required = false, defaultValue = "desc") String isAsc,
+                                                @ApiParam(name = "orderByColumn", value = "根据主键", required = false, defaultValue = "id") String orderByColumn) throws VerifyTokenException {
         Map<String, Object> map = JWTUtil.verifyToken(token);
         if (map == null) throw new VerifyTokenException("令牌验证失败");
         Long userId = (Long) map.get("userId");
         String openid = (String) map.get("openid");
         if (userService.isExistOpenidAndUserId(openid, userId)) {
             //分页查询 根据userId查询
-
-            return null;
+            //设置分页信息
+            startPage();
+            //查询数据
+            List<ShopCar> list = shopCarService.selectShopCarDesc();
+            //包装查询的数据
+            TableDataInfo tableDataInfo = getDataTable(list);
+            return ServerResponse.createBySuccess(tableDataInfo);
         } else {
             throw new VerifyTokenException("令牌验证失败");
         }

@@ -6,11 +6,18 @@ import com.zsl.jysc.service.IShopCarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ShopCarServiceImpl implements IShopCarService {
 
     @Autowired
     private ShopCarMapper shopCarMapper;
+
+    @Override
+    public List<ShopCar> selectShopCarDesc() {
+        return shopCarMapper.selectShopCarDesc();
+    }
 
     @Override
     public boolean addShopCar(ShopCar shopCar) {
