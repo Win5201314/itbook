@@ -2,6 +2,7 @@ package com.zsl.jysc.controller.backup;
 
 import com.zsl.jysc.common.ServerResponse;
 import com.zsl.jysc.common.annotation.VerifyAdminToken;
+import com.zsl.jysc.common.controller.BaseController;
 import com.zsl.jysc.entity.Product;
 import com.zsl.jysc.service.IProductService;
 import io.swagger.annotations.Api;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Api(value = "商品模块")
 @RestController
-public class ProductController {
+public class ProductController extends BaseController {
 
     @Autowired
     private IProductService productService;
