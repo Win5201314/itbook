@@ -3,7 +3,7 @@ package com.zsl.jysc.controller.backup;
 import com.zsl.jysc.common.ServerResponse;
 import com.zsl.jysc.common.annotation.VerifyAdminToken;
 import com.zsl.jysc.entity.Provider;
-import com.zsl.jysc.service.impl.ProviderServiceImpl;
+import com.zsl.jysc.service.IProviderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProviderController {
 
     @Autowired
-    private ProviderServiceImpl providerService;
+    private IProviderService providerService;
 
     @ApiOperation(value = "添加新供应商")
     @VerifyAdminToken
     @PostMapping("/addNewProvider")
-    public ServerResponse<String> addNewProvider(@ApiParam(name = "provider", value = "供应商对象") Provider provider,
-                                                 @ApiParam(name = "token", value = "口令") String token) {
+    public ServerResponse<String> addNewProvider(@ApiParam(name = "provider", value = "供应商对象", required = true) Provider provider,
+                                                 @ApiParam(name = "token", value = "口令", required = true) String token) {
         //营业执照号唯一，防止重复添加
         if (providerService.isExitBusinessNumber(provider.getBusinessNumber())) {
             if (providerService.addNewProvider(provider)) {
@@ -66,8 +66,8 @@ public class ProviderController {
     @ApiOperation(value = "更新供应商")
     @VerifyAdminToken
     @PostMapping("/updateProvider")
-    public ServerResponse<String> updateProvider(@ApiParam(name = "token", value = "口令") String token,
-                                                @ApiParam(name = "provider", value = "地址对象") Provider provider) {
+    public ServerResponse<String> updateProvider(@ApiParam(name = "token", value = "口令", required = true) String token,
+                                                @ApiParam(name = "provider", value = "地址对象", required = true) Provider provider) {
         if (providerService.updateProvider(provider)) {
             return ServerResponse.createBySuccess("更新成功");
         } else {

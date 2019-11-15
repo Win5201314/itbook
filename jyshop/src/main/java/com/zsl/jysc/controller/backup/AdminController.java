@@ -1,7 +1,7 @@
 package com.zsl.jysc.controller.backup;
 
 import com.zsl.jysc.common.ServerResponse;
-import com.zsl.jysc.service.impl.AdminServiceImpl;
+import com.zsl.jysc.service.IAdminService;
 import com.zsl.jysc.util.JWTUtil;
 import com.zsl.jysc.util.MD5Utils;
 import io.swagger.annotations.Api;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminController {
 
     @Autowired
-    private AdminServiceImpl adminService;
+    private IAdminService adminService;
 
     /**
      * 注册不要，管理员比较少，数据直接修改数据库

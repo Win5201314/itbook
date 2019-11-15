@@ -14,5 +14,6 @@
         <typeAlias type="com.zsl.jysc.entity.Provider" alias="provider"/>
         <typeAlias type="com.zsl.jysc.entity.Order" alias="order"/>
         <typeAlias type="com.zsl.jysc.entity.Product" alias="product"/>
+        <typeAlias type="com.zsl.jysc.entity.VIPMember" alias="member"/>
     </typeAliases>
 </configuration>

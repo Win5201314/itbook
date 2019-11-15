@@ -1,12 +1,12 @@
-package com.zsl.jysc.mapper;
+package com.zsl.jysc.service;
 
 import com.zsl.jysc.entity.Product;
-import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-@Mapper
-public interface ProductMapper {
+public interface IMainPageService {
+
+    String selectBannerImages();
 
     List<Product> selectProductByStatus();
     List<Product> selectProductByStatusEq2();

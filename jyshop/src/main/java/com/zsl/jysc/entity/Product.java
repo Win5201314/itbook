@@ -47,6 +47,9 @@ public class Product implements Serializable {
     @ApiModelProperty(name = "detailImages", value = "商品详细图片,图片url用英文逗号隔开")
     private String detailImages;
 
+    @ApiModelProperty(name = "status", value = "精品首发=0, 剁手灵感=1, LINE FRIENDS=2")
+    private Integer status;
+
     @JsonIgnore
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ApiModelProperty(name = "create_time", value = "商品上架时间")

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zsl.jysc.mapper.ProductMapper" >
-
+    <select id="selectProductByStatus" resultType="product">
+        select * from Product where status = 0 or status = 1;
+    </select>
+    <select id="selectProductByStatusEq2" resultType="product">
+        select * from Product where status = 2;
+    </select>
 </mapper>

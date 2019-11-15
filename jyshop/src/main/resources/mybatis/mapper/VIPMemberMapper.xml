@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zsl.jysc.mapper.VIPMemberMapper" >
+
+    <insert id="addNewVIPMember" parameterType="member" useGeneratedKeys="true" keyProperty="id">
+        insert into VIPMember(userId, phoneNumber, sex, birthDay, jobType, yearMoney, love, create_time, update_time)
+        values(#{member.userId}, #{member.phoneNumber}, #{member.sex}, #{member.birthDay}, #{member.jobType}, #{member.yearMoney}, #{member.love}, now(), now())
+    </insert>
+
+</mapper>
