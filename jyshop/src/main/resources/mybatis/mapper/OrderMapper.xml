@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zsl.jysc.mapper.OrderMapper" >
+    <!--未写全，待定-->
+    <select id="selectOrderByUserIdAndOrderStatus" parameterType="map" resultType="order">
+        select * from Order where userId = #{userId} and orderStatus = #{orderStatus}
+    </select>
+</mapper>
