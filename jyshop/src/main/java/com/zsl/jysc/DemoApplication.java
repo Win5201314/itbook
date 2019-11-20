@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.ansi.AnsiOutput;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.core.SpringVersion;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -16,7 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableTransactionManagement
 @MapperScan("com.zsl.jysc.mapper")//参考博文 http://www.mybatis.org/mybatis-3/zh/index.html
 @SpringBootApplication(scanBasePackages = "com.zsl.jysc")
-//@ServletComponentScan(basePackages = "com.zsl.xiangqing.filter") //扫描自定义的过滤器
+@ServletComponentScan(basePackages = "com.zsl.jysc.filter") //扫描自定义的过滤器
 public class DemoApplication {
 
     public static void main(String[] args) {
