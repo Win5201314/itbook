@@ -33,14 +33,17 @@ public class Test {
         //10月份
         double c = 400 + 33 + 638.12 + 570.8 + 1700 + 300 + 600 + 600;//1700公司财务审计 给了 2019-10-31
         System.out.println("--------------->" + c);
-        double d = 400 + 394.05 + 566.52 + 19.9 + 299.4 + 600;//11月份 + 垃圾袋 + 299.4（月宽带费）
+        double d = 400 + 394.05 + 566.52 + 19.9 + 299.4 + 600;//11月份 + 垃圾袋 + 299.4（月宽带费）给了
         System.out.println("------------------------>" + d);
+        double ff = 400 + 297.29 + 546.6;
+        System.out.println("------------------------>" + ff);
         // 记录debug级别的信息
         //logger.debug("This is debug message.");
         // 记录info级别的信息
         //logger.info("This is info message.");
         // 记录error级别的信息
         //logger.error("This is error message.");
+        printArray(new String[] {"1", "6"});
     }
 
     @org.junit.Test
@@ -51,6 +54,12 @@ public class Test {
         if (m.find()) {
             String shortMessage = m.group();
             System.out.println(shortMessage);
+        }
+    }
+
+    public static <T> void printArray(T[] array) {
+        for (T t : array) {
+            System.out.println("----" + t);
         }
     }
 }

@@ -6,16 +6,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="jyshop" />
+        <module name="xiangqing" />
         <module name="AOPTest" />
         <module name="boss" />
-        <module name="xiangqing" />
+        <module name="jyshop" />
+        <module name="googleGuiceTest" />
         <module name="springdatajpaTest" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="AOPTest" target="1.8" />
       <module name="boss" target="1.8" />
+      <module name="googleGuiceTest" target="1.8" />
       <module name="itbook" target="1.8" />
       <module name="jyshop" target="1.8" />
       <module name="springdatajpaTest" target="1.7" />
@@ -26,6 +28,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="AOPTest" options="-parameters" />
       <module name="boss" options="-parameters" />
+      <module name="googleGuiceTest" options="-parameters" />
       <module name="jyshop" options="-parameters" />
       <module name="xiangqing" options="-parameters" />
     </option>

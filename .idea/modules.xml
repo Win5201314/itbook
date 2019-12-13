@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AOPTest/AOPTest.iml" filepath="$PROJECT_DIR$/AOPTest/AOPTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/boss/boss.iml" filepath="$PROJECT_DIR$/boss/boss.iml" />
+      <module fileurl="file://$PROJECT_DIR$/googleGuiceTest/googleGuiceTest.iml" filepath="$PROJECT_DIR$/googleGuiceTest/googleGuiceTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/itbook.iml" filepath="$PROJECT_DIR$/itbook.iml" />
       <module fileurl="file://$PROJECT_DIR$/jyshop/jyshop.iml" filepath="$PROJECT_DIR$/jyshop/jyshop.iml" />
       <module fileurl="file://$PROJECT_DIR$/springdatajpaTest/springdatajpaTest.iml" filepath="$PROJECT_DIR$/springdatajpaTest/springdatajpaTest.iml" />
