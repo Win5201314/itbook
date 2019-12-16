@@ -35,7 +35,7 @@ public class Test {
         System.out.println("--------------->" + c);
         double d = 400 + 394.05 + 566.52 + 19.9 + 299.4 + 600;//11月份 + 垃圾袋 + 299.4（月宽带费）给了
         System.out.println("------------------------>" + d);
-        double ff = 400 + 297.29 + 546.6;
+        double ff = 400 + 297.29 + 546.6 + 600 + 11000;//12月份给了 2019-12-16
         System.out.println("------------------------>" + ff);
         // 记录debug级别的信息
         //logger.debug("This is debug message.");

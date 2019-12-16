@@ -4,6 +4,9 @@ import com.google.inject.*;
 import com.google.inject.name.Named;
 import com.google.inject.name.Names;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * 参考博客：https://www.jianshu.com/p/9ac108d14608
  */
@@ -29,13 +32,13 @@ class SecondPrinter implements IPrinter {
         System.out.println("second");
     }
 }
-
+//ss://aes-256-cfb@47.252.78.174:16062
 class BaseModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(IPrinter.class).annotatedWith(Names.named("first")).to(FirstPrinter.class);
-        bind(IPrinter.class).annotatedWith(Names.named("second")).to(SecondPrinter.class);
+        bind(IPrinter.class).annotatedWith(Names.named("first")).to(FirstPrinter.class).in(Singleton.class);
+        bind(IPrinter.class).annotatedWith(Names.named("second")).to(SecondPrinter.class).in(Scopes.SINGLETON);
     }
 }
 
@@ -59,8 +62,19 @@ public class Test2 {
         /*Injector injector = Guice.createInjector();
         Test2 test2 = injector.getInstance(Test2.class);
         test2.function();*/
-        Injector injector = Guice.createInjector(new BaseModule());
+        //Guice.createInjector(new BaseModule()).injectMembers(this);
+        /*Injector injector = Guice.createInjector(new BaseModule());
         Test2 test2 = injector.getInstance(Test2.class);
-        test2.function();
+        test2.function();*/
+        List<String> list = new LinkedList<>();
+        list.add("6+");
+        list.add("669+");
+        list.add("+6dgd");
+        for (String s : list) {
+            System.out.println(s);
+        }
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
     }
 }
