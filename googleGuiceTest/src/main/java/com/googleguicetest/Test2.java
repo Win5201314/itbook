@@ -66,7 +66,7 @@ public class Test2 {
         /*Injector injector = Guice.createInjector(new BaseModule());
         Test2 test2 = injector.getInstance(Test2.class);
         test2.function();*/
-        List<String> list = new LinkedList<>();
+        /*List<String> list = new LinkedList<>();
         list.add("6+");
         list.add("669+");
         list.add("+6dgd");
@@ -75,6 +75,9 @@ public class Test2 {
         }
         for (int i = 0; i < list.size(); i++) {
             System.out.println(list.get(i));
-        }
+        }*/
+        //32位
+        String s = "2e9161bd-0890-4be9-8c10-edb147588935";
+        System.out.println(s.length());
     }
 }
