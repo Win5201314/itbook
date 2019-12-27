@@ -1,6 +1,9 @@
 package com.zsl.jysc.controller;
 
 import com.zsl.jysc.common.ServerResponse;
+import com.zsl.jysc.common.error.BusinessException;
+import com.zsl.jysc.common.error.CommonError;
+import com.zsl.jysc.common.error.EmBusinessError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -65,6 +68,13 @@ public class TestController {
         Cookie cookie1 = new Cookie("sessionId", "后台生成的sessionId");
         cookie1.setHttpOnly(true);
         response.addCookie(cookie1);
+        return null;
+    }
+
+    @PostMapping(value = "/test2")
+    public ServerResponse<String> test(String email) throws BusinessException {
+        if ("".equals(email))
+         throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "邮箱参数格式异常");
         return null;
     }
 }

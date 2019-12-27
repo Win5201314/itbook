@@ -4,6 +4,8 @@ import com.google.inject.*;
 import com.google.inject.name.Named;
 import com.google.inject.name.Names;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -76,8 +78,23 @@ public class Test2 {
         for (int i = 0; i < list.size(); i++) {
             System.out.println(list.get(i));
         }*/
-        //32位
-        String s = "2e9161bd-0890-4be9-8c10-edb147588935";
-        System.out.println(s.length());
+        ArrayList<String> sendMsgFriend = null;
+        String list = "13112345678;13698763743;13928370932; ";
+        List<String> stringList = Arrays.asList(list.split(";"));
+        sendMsgFriend = new ArrayList<>(stringList);
+        for (String s : sendMsgFriend) {
+            System.out.println("-------" + s);
+        }
+
+        ArrayList<String> list2 = new ArrayList<>();
+        list2.addAll(sendMsgFriend);
+        StringBuilder sb = new StringBuilder();
+        /*for (String s : list2) {
+            sb.append(s + ",");
+        }*/
+        System.out.println(sb.length());
+        String ss = sb.substring(0, sb.length() - 1);
+        System.out.println("--->" + ss);
+        //https://oss-njp.oss-cn-hongkong.aliyuncs.com/picture/12710/15769221267114.jpg
     }
 }
