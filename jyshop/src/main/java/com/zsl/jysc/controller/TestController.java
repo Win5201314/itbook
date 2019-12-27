@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
  * 前后端分离 Session and Cookies
  */
 @RestController
+@CrossOrigin
 public class TestController {
 
     /**拦截器 或者 过滤器那种解决办法 不如 注解@CrossOrigin简便
@@ -72,9 +73,12 @@ public class TestController {
     }
 
     @PostMapping(value = "/test2")
-    public ServerResponse<String> test(String email) throws BusinessException {
+    public ServerResponse<String> test(String email, HttpServletRequest request, HttpServletResponse response) throws BusinessException {
         if ("".equals(email))
          throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "邮箱参数格式异常");
+        //通常用HttpSession来存储每个用户请求的数据存储
+        HttpSession httpSession = request.getSession();
+        httpSession.setAttribute("key", "value");
         return null;
     }
 }
