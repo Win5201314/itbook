@@ -79,7 +79,7 @@ public class Test2 {
             System.out.println(list.get(i));
         }*/
         ArrayList<String> sendMsgFriend = null;
-        String list = "13112345678;13698763743;13928370932; ";
+        String list = "13112345678;13698763743;13928370932";
         List<String> stringList = Arrays.asList(list.split(";"));
         sendMsgFriend = new ArrayList<>(stringList);
         for (String s : sendMsgFriend) {
@@ -89,12 +89,13 @@ public class Test2 {
         ArrayList<String> list2 = new ArrayList<>();
         list2.addAll(sendMsgFriend);
         StringBuilder sb = new StringBuilder();
+        list2.forEach(s -> {
+            sb.append(s + ",");
+        });
+        System.out.println(sb);
         /*for (String s : list2) {
             sb.append(s + ",");
         }*/
-        System.out.println(sb.length());
-        String ss = sb.substring(0, sb.length() - 1);
-        System.out.println("--->" + ss);
         //https://oss-njp.oss-cn-hongkong.aliyuncs.com/picture/12710/15769221267114.jpg
     }
 }

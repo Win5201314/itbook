@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Api(value = "管理员模块")
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class AdminController {
 
     @Autowired
