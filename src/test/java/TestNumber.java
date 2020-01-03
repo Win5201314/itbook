@@ -8,6 +8,9 @@ public class TestNumber {
     public static void main(String[] args) {
         String number = UUID.randomUUID().toString();
         System.out.println(number + "--->" + number.length());
+        String countStr = "3,244";
+        int i = Integer.parseInt(countStr.replaceAll(",", ""));
+        System.out.println(i);
     }
 
     @Test

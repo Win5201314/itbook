@@ -4,7 +4,11 @@ import com.zsl.jysc.common.ServerResponse;
 import com.zsl.jysc.common.error.BusinessException;
 import com.zsl.jysc.common.error.CommonError;
 import com.zsl.jysc.common.error.EmBusinessError;
+import com.zsl.jysc.entity.Product;
+import org.apache.commons.lang3.time.FastDateFormat;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,6 +16,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.util.Date;
 
 /**
  * 前后端分离 Session and Cookies
@@ -79,6 +85,16 @@ public class TestController {
         //通常用HttpSession来存储每个用户请求的数据存储
         HttpSession httpSession = request.getSession();
         httpSession.setAttribute("key", "value");
+        String format = FastDateFormat.getInstance("yyyyMMddHHmmssSSS").format(new Date());
+        System.out.println(format);
+        return null;
+    }
+
+    @PostMapping("/test3")
+    public ServerResponse<String> test2(@Valid @ModelAttribute Product product, Errors errors) throws BusinessException {
+        if (errors.hasErrors()) {
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "参数格式异常");
+        }
         return null;
     }
 }

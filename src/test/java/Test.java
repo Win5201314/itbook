@@ -7,9 +7,6 @@ public class Test {
 
     private static Logger logger = Logger.getLogger(Test.class);
 
-    /**
-     * @param args
-     */
     public static void main(String[] args) {
         // System.out.println("This is println message.");
         double i = 1100 + 400 + 600 + 1205.14 + 575.08 + 9.98 + 298.5;//6-28 已经给了
@@ -36,6 +33,8 @@ public class Test {
         double d = 400 + 394.05 + 566.52 + 19.9 + 299.4 + 600;//11月份 + 垃圾袋 + 299.4（月宽带费）给了
         System.out.println("------------------------>" + d);
         double ff = 400 + 297.29 + 546.6 + 600 + 11000;//12月份给了 2019-12-16
+        System.out.println("------------------------>" + ff);
+        double ll = 186.75 + 400;//2020-1
         System.out.println("------------------------>" + ff);
         // 记录debug级别的信息
         //logger.debug("This is debug message.");

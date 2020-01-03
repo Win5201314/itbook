@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -38,11 +39,13 @@ public class Provider implements Serializable {
 
     @JsonIgnore
     @JsonFormat(pattern="yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @ApiModelProperty(name = "create_time", value = "创建时间")
     private Date create_time;
 
     @JsonIgnore
     @JsonFormat(pattern="yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @ApiModelProperty(name = "update_time", value = "再次更新时间")
     private Date update_time;
 }
