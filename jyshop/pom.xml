@@ -24,7 +24,7 @@
 
 
         <swagger-version>2.7.0</swagger-version>
-        <shiro-version>1.4.1</shiro-version>
+        <shiro-version>1.8.0</shiro-version>
         <bitwalker.version>1.21</bitwalker.version>
     </properties>
 
